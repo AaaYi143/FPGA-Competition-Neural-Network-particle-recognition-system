@@ -1,0 +1,17 @@
+{
+  "units": "mm",
+  "description": "Open, joined bench modules; board envelopes are references, not measured replicas.",
+  "module_gap": 4.0,
+  "base_thickness": 5.0,
+  "foot_height": 8.0,
+  "clearance_hole": 3.6,
+  "grid_slot_width": 4.0,
+  "pcb_slot_width": 2.4,
+  "analog": {"width": 140.0, "depth": 110.0, "reference_offset": [20.0, 81.5672, 23.9403]},
+  "fpga": {"width": 180.0, "depth": 160.0, "reference_pcb": [150.0, 110.0, 1.6], "reference_confirmed": false},
+  "stm32": {"width": 140.0, "depth": 130.0, "reference_pcb": [108.4, 80.0, 1.6], "reference_confirmed": false},
+  "adapter": {"length": 32.0, "width": 12.0, "thickness": 3.0, "slot_length": 22.0},
+  "nylon_standoff_height": 12.0,
+  "screen_mount": "No separate bezel: screen is assumed to remain attached to STM32 board, pending user dimensions.",
+  "print": {"nozzle": 0.4, "layer_height": 0.2, "walls": 4, "infill_percent": 30, "material": "PETG recommended; PLA for room-temperature trial fit"}
+}

@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity Draw.io Generator" version="24.7.5" type="device">
+  <diagram id="diag_3_fpga" name="3_FPGA数据处理">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="header_title" value="FPGA 片上同步采集、无除法预处理与定点神经网络加速架构图（Xilinx Artix-7 XC7A35T @ 100MHz）" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#1E3A8A;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#FFFFFF;fontStyle=1;fontSize=18;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="1520" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_adc" value="① XADC 稳态采集与过采样滤波 (ADC.sv)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#EBF5FF;strokeColor=#2563EB;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#1E3A8A;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="320" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_pre" value="② 背景光扣除与无除法归一化 (nn_preprocess.sv)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#065F46;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="385" y="80" width="355" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_nn" value="③ 片上定点 MLP 神经网络推理引擎 (NN_module.sv)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#92400E;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="765" y="80" width="420" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c3_out" value="④ 多模态结果分发与双串口输出引擎" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#7C3AED;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#5B21B6;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="80" width="350" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="footer_legend" value="&lt;b&gt;图例说明：&lt;/b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#DC2626'&gt;&lt;b&gt;━━▶ 激光/衍射光路&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#059669'&gt;&lt;b&gt;━━▶ 模拟电流/电压信号&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#1D4ED8'&gt;&lt;b&gt;━━▶ FPGA内部高速数字流&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#D97706'&gt;&lt;b&gt;┄┄▶ FPGA闭环选通/增益/开关控制&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#7C3AED'&gt;&lt;b&gt;━━▶ UART串口/外设通信链路&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;系统核心指标：&lt;/b&gt;前处理耗时：0.65 μs (65 Cycles) | MLP 推理耗时：1.40 μs | 端到端总延迟：2.05 μs | 零除法器开销" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=1.5;align=left;verticalAlign=middle;spacingLeft=15;fontSize=11;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="830" width="1520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_xadc" value="&lt;b&gt;12-bit SAR XADC 核 (xadc_wiz_0)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;差分引脚：VauxP[0]/VauxN[0] (0~1.0V)&lt;br&gt;ADCCLK = 25 MHz | 转换周期 1.04 μs&lt;br&gt;底层连续转换速率：961.54 kSa/s&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="280" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_demux" value="&lt;b&gt;第 4-EOC 稳态抽取与解复用器&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;每通道持续选通 6 个 EOC 周期 (6.24 μs)&lt;br&gt;第 4 个 EOC 锁存，滤除开关/运放建立瞬态&lt;br&gt;有效稳态采样率：160.26 kSa/s&lt;br&gt;32 环空间全谱扫描帧率：5,008 Hz&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="315" width="280" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_avg" value="&lt;b&gt;32通道 × 512点硬件累加均值滤波&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;32 路独立 21-bit 硬件累加寄存器&lt;br&gt;累加满 512 帧后算术右移 9 位 (&gt;&gt; 9)&lt;br&gt;强力滤除激光散斑高频抖动与热噪声&lt;br&gt;单帧能谱积分周期：102.24 ms&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="515" width="280" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_fb" value="&lt;b&gt;硬件闭环选通与增益输出&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;opChooseChannel[6:0] → 双片 ADG1206&lt;br&gt;opEnResistor[7:0] → OP37 8档 PGA&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="700" width="280" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_sw7" value="&lt;b&gt;板载拨码开关 SW7 (引脚 P5)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;环境背景光实时扣除硬件控制开关&lt;br&gt;SW7 = 0：锁存当前32环均值为背景底噪 Bg[0:31]&lt;br&gt;SW7 = 1：启用实时净光强扣除模式&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="405" y="130" width="315" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_bgsub" value="&lt;b&gt;实时背景光扣除算子&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;逐通道并行饱和减法：&lt;br&gt;Net[i] = max(Raw[i] - Bg[i], 0) (i = 0..31)&lt;br&gt;彻底消除环境杂散光与探测器暗电流基线&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="405" y="265" width="315" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_empty" value="&lt;b&gt;空皿/无颗粒硬件快速判决器&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;计算 31 环散射净光强总和：Sum = ∑ Net[0:30]&lt;br&gt;若 Sum ≤ 419 (EMPTY_SUM_THRESHOLD)：&lt;br&gt;直接置位空皿标志，旁路输出类别 0（无颗粒）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="405" y="400" width="315" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_lzc" value="&lt;b&gt;最大值搜索与 24-bit 前导零检测 (LZC)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;搜索 31 环净光强最大值 Max_Val&lt;br&gt;24-bit LZC 硬件定位最高有效位 + 桶形移位器归一化&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="405" y="540" width="315" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_rom" value="&lt;b&gt;256×8-bit 倒数查表 ROM 与定点重缩放&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;Q8.8 倒数查找表 + DSP 定点乘法替代硬件除法器&lt;br&gt;65 Cycles (0.65 μs @ 100MHz) 映射至 [-128, +127] Int8 向量&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="405" y="665" width="315" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_nn_hdr" value="&lt;b&gt;定点量化参数与架构配置 (weights.vh / scales.vh)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;网络拓扑：31 → 20 → 31 → 4 | 权值 Int8 / 偏置 Int16 / 累加器 22-bit&lt;br&gt;总乘累加量：1,364 MACs | 与 PyTorch 测试集 100.00% Bit-Exact 对齐&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="125" width="370" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_fc1" value="&lt;b&gt;第 1 全连接层 FC1 (31 → 20)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;调用 20 路 DSP48E1 并行乘累加：∑(X_int8 × W1_int8) + B1_int16&lt;br&gt;22-bit 累加防溢出 + 算术右移缩放与饱和截断&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="227" width="370" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_act1" value="&lt;b&gt;硬件激活层 Act1 (Hard_modified_sigmoid)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;阈值 ±4.0 分段线性移位近似与上下界钳位，单周期零浮点开销&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="329" width="370" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_fc2" value="&lt;b&gt;第 2 全连接层 FC2 (20 → 31)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;调用 31 路 DSP48E1 并行乘累加：∑(H1_int8 × W2_int8) + B2_int16&lt;br&gt;22-bit 累加防溢出 + 算术右移缩放与饱和截断&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="417" width="370" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_act2" value="&lt;b&gt;硬件激活层 Act2 (Hard_modified_sigmoid)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;分段线性移位激活，输出 31 维深层非线性散射特征&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="519" width="370" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_fc3" value="&lt;b&gt;第 3 全连接输出层 FC3 (31 → 4)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;调用 4 路 DSP48E1 并行乘累加，输出 4 类被测微粒得分 Logits[0:3]&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="607" width="370" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_argmax" value="&lt;b&gt;并行比较判决器 (Argmax.sv) | 推理耗时 1.40 μs&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;单周期树形比较选出最大得分索引 + 融合空皿旁路标志&lt;br&gt;输出 5 态结果：0-无颗粒 / 1-小米 / 2-珍珠粉 / 3-细盐 / 4-白砂糖&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="790" y="701" width="370" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_seg" value="&lt;b&gt;输出 1：板载双八段数码管驱动 (SegLed.sv)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;动态扫描刷新 EGo1 板载数码管&lt;br&gt;本地零延迟直显当前微粒分类编号 (0 ~ 4)&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="140" width="310" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_stm_tx" value="&lt;b&gt;输出 2：STM32 专用串口引擎 (ParticleSerial.sv)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;物理引脚：J5-24 (F16) → STM32 PA3 (USART2_RX)&lt;br&gt;通信参数：115200 bps, 8N1 (无校验)&lt;br&gt;定长 8 字节协议帧 (Version 02)：&lt;br&gt;A5 5A | 02 | SEQ | RESULT | FLAGS | CRC8 | 0D&lt;br&gt;硬件实时计算 CRC-8/ATM (多项式 0x07)&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="290" width="310" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_sw6" value="&lt;b&gt;板载拨码开关 SW6 (引脚 P4，带10ms消抖)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;PC 上位机串口双工作模式硬件切换开关&lt;br&gt;SW6 = 0：光谱采集模式 | SW6 = 1：分类结果模式&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="495" width="310" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_pc_tx" value="&lt;b&gt;输出 3：PC 双模式串口引擎 (Uart_Tx.sv)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;物理接口：USB-UART (CP2102) / 蓝牙透传&lt;br&gt;通信参数：115200 bps, 8E1 (偶校验)&lt;br&gt;• SW6=0：发送 32环×16-bit 能谱 + FF FF (66B/帧)&lt;br&gt;• SW6=1：发送 8字节 CRC8 结构化分类结果帧&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="625" width="310" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_1" value="12-bit 采样流" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_xadc" target="f3_demux">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_2" value="32路解复用数据" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_demux" target="f3_avg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_fb" value="通道状态同步" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_demux" target="f3_fb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="48" y="385" />
+              <mxPoint x="48" y="742" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_3" value="Raw[0:31] 均值能谱" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_avg" target="f3_bgsub">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="368" y="587" />
+              <mxPoint x="368" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_sw7" value="sub_bg_en" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_sw7" target="f3_bgsub">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_4" value="Net[0:30] 净光强" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_bgsub" target="f3_empty">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_5" value="Sum &gt; 419 (有颗粒)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_empty" target="f3_lzc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_6" value="移位尾数 &amp; 指数" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_lzc" target="f3_rom">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_7" value="31维 Int8 特征 (0.65μs)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_rom" target="f3_fc1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="748" y="722" />
+              <mxPoint x="748" y="268" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_empty_bp" value="空皿标志 (Sum≤419)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_empty" target="f3_argmax">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="756" y="452" />
+              <mxPoint x="756" y="745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_n0" value="加载定点权重/偏置" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_nn_hdr" target="f3_fc1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_n1" value="20维累加缩放" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_fc1" target="f3_act1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_n2" value="20维 Int8 激活值" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_act1" target="f3_fc2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_n3" value="31维累加缩放" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_fc2" target="f3_act2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_n4" value="31维 Int8 激活值" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_act2" target="f3_fc3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_n5" value="4维得分 Logits" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_fc3" target="f3_argmax">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_o1" value="RESULT (0~4)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;fontColor=#5B21B6;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.33;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_argmax" target="f3_seg">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1195" y="730" />
+              <mxPoint x="1195" y="195" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_o2" value="RESULT &amp; FLAGS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;fontColor=#5B21B6;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_argmax" target="f3_stm_tx">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1195" y="745" />
+              <mxPoint x="1195" y="372" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_o3" value="分类结果 / 32环能谱" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;fontColor=#5B21B6;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.67;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_argmax" target="f3_pc_tx">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1195" y="760" />
+              <mxPoint x="1195" y="702" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3_sw6" value="模式选择" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f3_sw6" target="f3_pc_tx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

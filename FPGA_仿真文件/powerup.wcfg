@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="powerup.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_powerup" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="22" />
+   <wvobject fp_name="/tb_powerup/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/eoc" type="logic">
+      <obj_property name="ElementShortName">eoc</obj_property>
+      <obj_property name="ObjectShortName">eoc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/channel_code" type="array">
+      <obj_property name="ElementShortName">channel_code[6:0]</obj_property>
+      <obj_property name="ObjectShortName">channel_code[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/pc_tx" type="logic">
+      <obj_property name="ElementShortName">pc_tx</obj_property>
+      <obj_property name="ObjectShortName">pc_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/stm_tx" type="logic">
+      <obj_property name="ElementShortName">stm_tx</obj_property>
+      <obj_property name="ObjectShortName">stm_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/channelCnt" type="array">
+      <obj_property name="ElementShortName">channelCnt[5:0]</obj_property>
+      <obj_property name="ObjectShortName">channelCnt[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/conversionCnt" type="array">
+      <obj_property name="ElementShortName">conversionCnt[8:0]</obj_property>
+      <obj_property name="ObjectShortName">conversionCnt[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/trigOfSelectData" type="logic">
+      <obj_property name="ElementShortName">trigOfSelectData</obj_property>
+      <obj_property name="ObjectShortName">trigOfSelectData</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/frameDone" type="logic">
+      <obj_property name="ElementShortName">frameDone</obj_property>
+      <obj_property name="ObjectShortName">frameDone</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/averageValid_nn" type="logic">
+      <obj_property name="ElementShortName">averageValid_nn</obj_property>
+      <obj_property name="ObjectShortName">averageValid_nn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/eoc" type="logic">
+      <obj_property name="ElementShortName">eoc</obj_property>
+      <obj_property name="ObjectShortName">eoc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/channel_code" type="array">
+      <obj_property name="ElementShortName">channel_code[6:0]</obj_property>
+      <obj_property name="ObjectShortName">channel_code[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/pc_tx" type="logic">
+      <obj_property name="ElementShortName">pc_tx</obj_property>
+      <obj_property name="ObjectShortName">pc_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/stm_tx" type="logic">
+      <obj_property name="ElementShortName">stm_tx</obj_property>
+      <obj_property name="ObjectShortName">stm_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/channelCnt" type="array">
+      <obj_property name="ElementShortName">channelCnt[5:0]</obj_property>
+      <obj_property name="ObjectShortName">channelCnt[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/conversionCnt" type="array">
+      <obj_property name="ElementShortName">conversionCnt[8:0]</obj_property>
+      <obj_property name="ObjectShortName">conversionCnt[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/trigOfSelectData" type="logic">
+      <obj_property name="ElementShortName">trigOfSelectData</obj_property>
+      <obj_property name="ObjectShortName">trigOfSelectData</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/frameDone" type="logic">
+      <obj_property name="ElementShortName">frameDone</obj_property>
+      <obj_property name="ObjectShortName">frameDone</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_powerup/dut/averageValid_nn" type="logic">
+      <obj_property name="ElementShortName">averageValid_nn</obj_property>
+      <obj_property name="ObjectShortName">averageValid_nn</obj_property>
+   </wvobject>
+</wave_config>

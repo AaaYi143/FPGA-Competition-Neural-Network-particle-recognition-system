@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="F:\Program\FPGA Competition\FPGA_·ÂÕæÎÄ¼þ\pouring.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_pouring" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="883.419233 us"></ZoomEndTime>
+      <Cursor1Time time="782.469205 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="274"></NameColumnWidth>
+      <ValueColumnWidth column_width="109"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="16" />
+   <wvobject fp_name="/tb_pouring/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/scene" type="array">
+      <obj_property name="ElementShortName">scene[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scene[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/f" type="array">
+      <obj_property name="ElementShortName">f[31:0]</obj_property>
+      <obj_property name="ObjectShortName">f[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/feature_index" type="array">
+      <obj_property name="ElementShortName">feature_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">feature_index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/raw" type="array">
+      <obj_property name="ElementShortName">raw[23:0]</obj_property>
+      <obj_property name="ObjectShortName">raw[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/valid" type="logic">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/dut/preproc_out_0_255" type="array">
+      <obj_property name="ElementShortName">preproc_out_0_255[7:0]</obj_property>
+      <obj_property name="ObjectShortName">preproc_out_0_255[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/dut/preproc_valid" type="logic">
+      <obj_property name="ElementShortName">preproc_valid</obj_property>
+      <obj_property name="ObjectShortName">preproc_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/dut/nn_module_inst/done_fc1" type="logic">
+      <obj_property name="ElementShortName">done_fc1</obj_property>
+      <obj_property name="ObjectShortName">done_fc1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/dut/nn_module_inst/done_fc2" type="logic">
+      <obj_property name="ElementShortName">done_fc2</obj_property>
+      <obj_property name="ObjectShortName">done_fc2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/dut/nn_module_inst/done_fc3" type="logic">
+      <obj_property name="ElementShortName">done_fc3</obj_property>
+      <obj_property name="ObjectShortName">done_fc3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/result_valid" type="logic">
+      <obj_property name="ElementShortName">result_valid</obj_property>
+      <obj_property name="ObjectShortName">result_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/result_class" type="array">
+      <obj_property name="ElementShortName">result_class[1:0]</obj_property>
+      <obj_property name="ObjectShortName">result_class[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/result_empty" type="logic">
+      <obj_property name="ElementShortName">result_empty</obj_property>
+      <obj_property name="ObjectShortName">result_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pouring/dut/display_code" type="array">
+      <obj_property name="ElementShortName">display_code[7:0]</obj_property>
+      <obj_property name="ObjectShortName">display_code[7:0]</obj_property>
+   </wvobject>
+</wave_config>

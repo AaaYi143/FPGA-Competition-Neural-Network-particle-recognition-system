@@ -1,0 +1,106 @@
+[
+  {
+    "board": "FPGA",
+    "hole": 1,
+    "pcb_xy": [
+      166.0,
+      32.0
+    ],
+    "tray_anchor_xy": [
+      156.0,
+      30.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  },
+  {
+    "board": "FPGA",
+    "hole": 2,
+    "pcb_xy": [
+      302.0,
+      32.0
+    ],
+    "tray_anchor_xy": [
+      312.0,
+      30.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  },
+  {
+    "board": "FPGA",
+    "hole": 3,
+    "pcb_xy": [
+      166.0,
+      128.0
+    ],
+    "tray_anchor_xy": [
+      156.0,
+      130.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  },
+  {
+    "board": "FPGA",
+    "hole": 4,
+    "pcb_xy": [
+      302.0,
+      128.0
+    ],
+    "tray_anchor_xy": [
+      312.0,
+      130.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  },
+  {
+    "board": "STM32",
+    "hole": 1,
+    "pcb_xy": [
+      346.8,
+      28.0
+    ],
+    "tray_anchor_xy": [
+      356.8,
+      30.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  },
+  {
+    "board": "STM32",
+    "hole": 2,
+    "pcb_xy": [
+      448.8,
+      28.0
+    ],
+    "tray_anchor_xy": [
+      438.8,
+      30.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  },
+  {
+    "board": "STM32",
+    "hole": 3,
+    "pcb_xy": [
+      346.8,
+      102.0
+    ],
+    "tray_anchor_xy": [
+      338.0,
+      110.0
+    ],
+    "arm_length_between_bolts": 11.892854997854814
+  },
+  {
+    "board": "STM32",
+    "hole": 4,
+    "pcb_xy": [
+      448.8,
+      102.0
+    ],
+    "tray_anchor_xy": [
+      438.8,
+      100.0
+    ],
+    "arm_length_between_bolts": 10.198039027185569
+  }
+]

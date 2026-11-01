@@ -1,0 +1,242 @@
+{
+  "baseline": "integrated/particle_identifier_20261023_sw6_vote20_512/fpga/project_41.xpr",
+  "classes": [
+    "小米",
+    "珍珠粉",
+    "细盐",
+    "白砂糖"
+  ],
+  "description": "Measured averaged feature replay, not analog pouring physics or full acquisition latency",
+  "frames": [
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 1,
+      "source_case": "validation_205",
+      "truth": 0,
+      "expected_class": 0,
+      "empty": false
+    },
+    {
+      "scene": 1,
+      "source_case": "validation_470",
+      "truth": 0,
+      "expected_class": 0,
+      "empty": false
+    },
+    {
+      "scene": 1,
+      "source_case": "validation_404",
+      "truth": 0,
+      "expected_class": 0,
+      "empty": false
+    },
+    {
+      "scene": 1,
+      "source_case": "validation_408",
+      "truth": 0,
+      "expected_class": 0,
+      "empty": false
+    },
+    {
+      "scene": 1,
+      "source_case": "validation_400",
+      "truth": 0,
+      "expected_class": 0,
+      "empty": false
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 2,
+      "source_case": "validation_853",
+      "truth": 1,
+      "expected_class": 1,
+      "empty": false
+    },
+    {
+      "scene": 2,
+      "source_case": "validation_663",
+      "truth": 1,
+      "expected_class": 1,
+      "empty": false
+    },
+    {
+      "scene": 2,
+      "source_case": "validation_869",
+      "truth": 1,
+      "expected_class": 1,
+      "empty": false
+    },
+    {
+      "scene": 2,
+      "source_case": "validation_748",
+      "truth": 1,
+      "expected_class": 1,
+      "empty": false
+    },
+    {
+      "scene": 2,
+      "source_case": "validation_894",
+      "truth": 1,
+      "expected_class": 1,
+      "empty": false
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 3,
+      "source_case": "validation_1444",
+      "truth": 2,
+      "expected_class": 2,
+      "empty": false
+    },
+    {
+      "scene": 3,
+      "source_case": "validation_1449",
+      "truth": 2,
+      "expected_class": 2,
+      "empty": false
+    },
+    {
+      "scene": 3,
+      "source_case": "validation_1689",
+      "truth": 2,
+      "expected_class": 2,
+      "empty": false
+    },
+    {
+      "scene": 3,
+      "source_case": "validation_1783",
+      "truth": 2,
+      "expected_class": 2,
+      "empty": false
+    },
+    {
+      "scene": 3,
+      "source_case": "validation_1464",
+      "truth": 2,
+      "expected_class": 2,
+      "empty": false
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 4,
+      "source_case": "validation_1193",
+      "truth": 3,
+      "expected_class": 3,
+      "empty": false
+    },
+    {
+      "scene": 4,
+      "source_case": "validation_1089",
+      "truth": 3,
+      "expected_class": 3,
+      "empty": false
+    },
+    {
+      "scene": 4,
+      "source_case": "validation_1361",
+      "truth": 3,
+      "expected_class": 3,
+      "empty": false
+    },
+    {
+      "scene": 4,
+      "source_case": "validation_1179",
+      "truth": 3,
+      "expected_class": 3,
+      "empty": false
+    },
+    {
+      "scene": 4,
+      "source_case": "validation_1344",
+      "truth": 3,
+      "expected_class": 3,
+      "empty": false
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    },
+    {
+      "scene": 0,
+      "source_case": "empty_489",
+      "truth": null,
+      "expected_class": 0,
+      "empty": true
+    }
+  ],
+  "rtl_sha256": {
+    "ADC.sv": "2ee172f0ad31cb5f0d1579ecc2ba39644f156b5b8b351ae53af97318ad897f7f",
+    "Argmax.sv": "c5a8a75d12f29e89686cd4d833ea0b1f622fcce610594228d25ecb383f5f506a",
+    "Bram_Parallel2Serial.sv": "72229888ccaeb957acf71b0136199bfa398a0fbadd64d35d213c51d5ed31cdf4",
+    "Bram_Serial2Serial.sv": "cc34c96a6e85be6678e816d9284df9e1714557ebaf02998931f611fe34e72d6c",
+    "Full_connect_layer.sv": "ac58fdb7a1d59a9b5020151bee1ff195aa0e7604faeb7226b0177b28715ef129",
+    "Hard_modified_sigmoid.sv": "d8d66423e995b8254f3712917e98d7dc7541395335d3e9d127dd235f62ae9578",
+    "Main.sv": "1bf8e5e6594636f66fd2e8ed98dbb276ab9dbb271c0e473fd3b720811e91eedb",
+    "Neural_network.v": "8c178e9c22876e77f94bd5370223133d8f0df21b98d2cc3e87765d39d27b02ef",
+    "NN_module.sv": "d07b01de5374ccbf863250f8327e08c3c7f879af85523bf8fc2f7aaae77c2500",
+    "nn_preprocess.sv": "280cc1d53035c152834e8fb6c0f983c29099090f62ef86bff2bd271b5f1fa674",
+    "ParticleResultTx.sv": "6e86ee8cdae78e89edd62809bf08ed44841d224b1cb60514a1e5130bed9dd044",
+    "ParticleSerial.sv": "2f420a54b5a80ea206afdc4796be11a4bbbf61963564f77359f776551c3ecf34",
+    "ProgrammableGainAmplifiers.sv": "9e9df61b285f25269caab3d2d45827591b999bb4ff1caaa43e4df10d2c9ba7ff",
+    "scales.vh": "558fdfb37615fe0ca8cd09e9de7a5b6f424248dd0cfc92ac840036978e0942b0",
+    "SegLed.sv": "5642e8c768a22d9ff4d0d489cd367a3b25bc0152961f7c744bcb5a7d4d567fe0",
+    "UartDataReady.sv": "1c7b1893e7d98de05a2e7c8210d402a7549badec72b25b089d301d96a0c29808",
+    "Uart_8bits.sv": "1223510d5de64181b39f2da2d0da37e013a257de03cddccfbdda3cf43454ba23",
+    "weights.vh": "bbcd2284f7e11c10689d35764cce2662c5c44fcc2f498f92217b2f12b04fd161"
+  }
+}

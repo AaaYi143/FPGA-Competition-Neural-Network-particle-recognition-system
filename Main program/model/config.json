@@ -1,0 +1,62 @@
+{
+  "classes": [
+    "小米",
+    "珍珠粉",
+    "细盐",
+    "白砂糖"
+  ],
+  "model": [
+    31,
+    20,
+    31,
+    4
+  ],
+  "epochs": 500,
+  "lr": 0.001,
+  "batch_size": 32,
+  "seed": 42,
+  "device": "cuda",
+  "split": "original random75/25",
+  "source_data": "/mnt/c/Users/cyka1/Documents/ChatGPT/fpgabisai/learning/competition_training/prepared/materials_20261021_initial/data_txt",
+  "data": [
+    {
+      "name": "小米",
+      "samples": 505,
+      "sha256": "24de6b69c1c663d528982d3a902eee596693520cb46214aa3b7b8d9c33ff91a1"
+    },
+    {
+      "name": "珍珠粉",
+      "samples": 461,
+      "sha256": "e12a573f7a1934e7c7aefcd4fd9926d61d41d2e81acdb246847aab019f333ade"
+    },
+    {
+      "name": "细盐",
+      "samples": 449,
+      "sha256": "782d8f0926b7fb97558dc8e382d6cc8ed835e7eaa52737eb9bf82e1c47d3a164"
+    },
+    {
+      "name": "白砂糖",
+      "samples": 451,
+      "sha256": "c3f4746f3875cd5b359eb06823d78d8a22b151bf972ea01ed668f16bb81d1be4"
+    }
+  ],
+  "project": "/mnt/c/Users/cyka1/Documents/ChatGPT/fpgabisai/fpga/pro4/project_41/project_41.xpr",
+  "rtl_sha256": {
+    "Argmax.sv": "c5a8a75d12f29e89686cd4d833ea0b1f622fcce610594228d25ecb383f5f506a",
+    "Bram_Parallel2Serial.sv": "72229888ccaeb957acf71b0136199bfa398a0fbadd64d35d213c51d5ed31cdf4",
+    "Bram_Serial2Serial.sv": "cc34c96a6e85be6678e816d9284df9e1714557ebaf02998931f611fe34e72d6c",
+    "weights.vh": "f10a7e41a1d9dc36c4e5b6791ab6eb4eb986ae99fc5dc0da79569f0251565b30",
+    "Full_connect_layer.sv": "ac58fdb7a1d59a9b5020151bee1ff195aa0e7604faeb7226b0177b28715ef129",
+    "Hard_modified_sigmoid.sv": "d8d66423e995b8254f3712917e98d7dc7541395335d3e9d127dd235f62ae9578",
+    "scales.vh": "9f8dd1bf240c8e5aac42666cacc9e8e8a351c64d9979efe045334d9b99822ae5",
+    "NN_module.sv": "d07b01de5374ccbf863250f8327e08c3c7f879af85523bf8fc2f7aaae77c2500",
+    "Neural_network.v": "dce2d0811b7c20c9b3bc4753eaf823e3e366530ea7575b6074e66121a65b51ae",
+    "nn_preprocess.sv": "280cc1d53035c152834e8fb6c0f983c29099090f62ef86bff2bd271b5f1fa674",
+    "Main.sv": "5293bfe513e63a2e18d99e1e6e6ddde1e5524767b5e15f1ff4743110565667db"
+  },
+  "trainer_sha256": "476d293980ef3088c04c5506faf4688941a52da8aa52b78300733d326004a2f5",
+  "deployed": false,
+  "bit_generated": false,
+  "independent_test": false,
+  "full_network_rtl_verified_this_run": false
+}

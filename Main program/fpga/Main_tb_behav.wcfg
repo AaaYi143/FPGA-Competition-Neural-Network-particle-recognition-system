@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Main_tsb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Main_tsb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="3,021.815000 us"></ZoomStartTime>
+      <ZoomEndTime time="3,034.045001 us"></ZoomEndTime>
+      <Cursor1Time time="3,024.915000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="292"></NameColumnWidth>
+      <ValueColumnWidth column_width="121"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="45" />
+   <wave_markers>
+      <marker time="2660000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/Main_tsb/Main_inst/ipClk" type="logic">
+      <obj_property name="ElementShortName">ipClk</obj_property>
+      <obj_property name="ObjectShortName">ipClk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/ipRst_" type="logic">
+      <obj_property name="ElementShortName">ipRst_</obj_property>
+      <obj_property name="ObjectShortName">ipRst_</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/trigOfEOC" type="logic">
+      <obj_property name="ElementShortName">trigOfEOC</obj_property>
+      <obj_property name="ObjectShortName">trigOfEOC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/conversionCnt_n" type="array">
+      <obj_property name="ElementShortName">conversionCnt_n[8:0]</obj_property>
+      <obj_property name="ObjectShortName">conversionCnt_n[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/conversionCnt" type="array">
+      <obj_property name="ElementShortName">conversionCnt[8:0]</obj_property>
+      <obj_property name="ObjectShortName">conversionCnt[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/trigOfSwitchChannel" type="logic">
+      <obj_property name="ElementShortName">trigOfSwitchChannel</obj_property>
+      <obj_property name="ObjectShortName">trigOfSwitchChannel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/opChooseChannel" type="array">
+      <obj_property name="ElementShortName">opChooseChannel[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opChooseChannel[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/outputDataOfAD" type="array">
+      <obj_property name="ElementShortName">outputDataOfAD[15:0]</obj_property>
+      <obj_property name="ObjectShortName">outputDataOfAD[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/trigOfSelectData" type="logic">
+      <obj_property name="ElementShortName">trigOfSelectData</obj_property>
+      <obj_property name="ObjectShortName">trigOfSelectData</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/cnt2" type="array">
+      <obj_property name="ElementShortName">cnt2[0:31][17:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt2[0:31][17:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/sum" type="array">
+      <obj_property name="ElementShortName">sum[0:31][28:0]</obj_property>
+      <obj_property name="ObjectShortName">sum[0:31][28:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/averageOfSum" type="array">
+      <obj_property name="ElementShortName">averageOfSum[0:31][11:0]</obj_property>
+      <obj_property name="ObjectShortName">averageOfSum[0:31][11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/ch_avg_done" type="array">
+      <obj_property name="ElementShortName">ch_avg_done[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ch_avg_done[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/ser_ch_cnt" type="array">
+      <obj_property name="ElementShortName">ser_ch_cnt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ser_ch_cnt[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/avg_reg" type="array">
+      <obj_property name="ElementShortName">avg_reg[11:0]</obj_property>
+      <obj_property name="ObjectShortName">avg_reg[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/avg_valid" type="logic">
+      <obj_property name="ElementShortName">avg_valid</obj_property>
+      <obj_property name="ObjectShortName">avg_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/raw_sig" type="array">
+      <obj_property name="ElementShortName">raw_sig[23:0]</obj_property>
+      <obj_property name="ObjectShortName">raw_sig[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/raw_valid" type="logic">
+      <obj_property name="ElementShortName">raw_valid</obj_property>
+      <obj_property name="ObjectShortName">raw_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/x_raw" type="array">
+      <obj_property name="ElementShortName">x_raw[23:0]</obj_property>
+      <obj_property name="ObjectShortName">x_raw[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/x_u" type="array">
+      <obj_property name="ElementShortName">x_u[23:0]</obj_property>
+      <obj_property name="ObjectShortName">x_u[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/frame_calc_en" type="logic">
+      <obj_property name="ElementShortName">frame_calc_en</obj_property>
+      <obj_property name="ObjectShortName">frame_calc_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/data_valid" type="logic">
+      <obj_property name="ElementShortName">data_valid</obj_property>
+      <obj_property name="ObjectShortName">data_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/frame_max" type="array">
+      <obj_property name="ElementShortName">frame_max[23:0]</obj_property>
+      <obj_property name="ObjectShortName">frame_max[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/frame_min" type="array">
+      <obj_property name="ElementShortName">frame_min[23:0]</obj_property>
+      <obj_property name="ObjectShortName">frame_min[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/sample_cnt" type="array">
+      <obj_property name="ElementShortName">sample_cnt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">sample_cnt[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/frame_calc_en" type="logic">
+      <obj_property name="ElementShortName">frame_calc_en</obj_property>
+      <obj_property name="ObjectShortName">frame_calc_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/B" type="array">
+      <obj_property name="ElementShortName">B[23:0]</obj_property>
+      <obj_property name="ObjectShortName">B[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/k" type="array">
+      <obj_property name="ElementShortName">k[4:0]</obj_property>
+      <obj_property name="ObjectShortName">k[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/M" type="array">
+      <obj_property name="ElementShortName">M[23:0]</obj_property>
+      <obj_property name="ObjectShortName">M[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/rom_addr" type="array">
+      <obj_property name="ElementShortName">rom_addr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_addr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/rd_cnt" type="array">
+      <obj_property name="ElementShortName">rd_cnt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_cnt[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/ram_wr_en" type="logic">
+      <obj_property name="ElementShortName">ram_wr_en</obj_property>
+      <obj_property name="ObjectShortName">ram_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/min_save" type="array">
+      <obj_property name="ElementShortName">min_save[23:0]</obj_property>
+      <obj_property name="ObjectShortName">min_save[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/u_nn_preprocess/norm_8bit" type="array">
+      <obj_property name="ElementShortName">norm_8bit[7:0]</obj_property>
+      <obj_property name="ObjectShortName">norm_8bit[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/preproc_out_0_255" type="array">
+      <obj_property name="ElementShortName">preproc_out_0_255[7:0]</obj_property>
+      <obj_property name="ObjectShortName">preproc_out_0_255[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/preproc_valid" type="logic">
+      <obj_property name="ElementShortName">preproc_valid</obj_property>
+      <obj_property name="ObjectShortName">preproc_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/SegLed_inst/scan_sel" type="logic">
+      <obj_property name="ElementShortName">scan_sel</obj_property>
+      <obj_property name="ObjectShortName">scan_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/nn_module_inst/done" type="logic">
+      <obj_property name="ElementShortName">done</obj_property>
+      <obj_property name="ObjectShortName">done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/nn_done" type="logic">
+      <obj_property name="ElementShortName">nn_done</obj_property>
+      <obj_property name="ObjectShortName">nn_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/SegLed_inst/start" type="logic">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/output_y" type="array">
+      <obj_property name="ElementShortName">output_y[4:0]</obj_property>
+      <obj_property name="ObjectShortName">output_y[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/SegLed_inst/data_buf" type="array">
+      <obj_property name="ElementShortName">data_buf[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_buf[7:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/SegLed_inst/scan_cnt" type="array">
+      <obj_property name="ElementShortName">scan_cnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">scan_cnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/SegLed_inst/op_seg_data" type="array">
+      <obj_property name="ElementShortName">op_seg_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">op_seg_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Main_tsb/Main_inst/Neural_network_inst/SegLed_inst/op_seg_en" type="array">
+      <obj_property name="ElementShortName">op_seg_en[1:0]</obj_property>
+      <obj_property name="ObjectShortName">op_seg_en[1:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,109 @@
+{
+  "total_flash_image_bytes": 110592,
+  "source_pdf_sha256": "4493fa1c7d772c47bf51f23524ebb09b7283ee029b984b41791bc2b8c599044d",
+  "pearl_pdf_page_1based": 4,
+  "pearl_pdf_printed_page": 475,
+  "pearl_pdf_image_object": "Im0 / Figure 2(a)",
+  "pearl_pdf_transform": [
+    195.5499717,
+    0,
+    0,
+    179.7664359,
+    121.14991,
+    516.7943551
+  ],
+  "images": [
+    {
+      "class_id": 0,
+      "result_code": 1,
+      "name": "小米",
+      "source": "millet.png",
+      "source_sha256": "9be7aa51e9256347b3b380e7023487d098051fd723dd54647b51f30b8fbf99fb",
+      "source_dimensions": [
+        320,
+        240
+      ],
+      "crop_ltrb": [
+        0,
+        14,
+        320,
+        227
+      ],
+      "output_dimensions": [
+        144,
+        96
+      ],
+      "bytes": 27648,
+      "rgb565le_sha256": "32e522836b1b450b3ca81c2171353d2d0d3e4c949e6681da552b896a7712c4cf"
+    },
+    {
+      "class_id": 1,
+      "result_code": 2,
+      "name": "珍珠粉",
+      "source": "pearl_page4_Im0.jp2",
+      "source_sha256": "7ad51b1ec49e02073a0689530381646ed3f2d8d93d8462d3e85ad3e119bed99f",
+      "source_dimensions": [
+        1087,
+        999
+      ],
+      "crop_ltrb": [
+        0,
+        60,
+        1087,
+        785
+      ],
+      "output_dimensions": [
+        144,
+        96
+      ],
+      "bytes": 27648,
+      "rgb565le_sha256": "effe3c2267b3f6f3d93a495b910da0674a851d8b0008b8fa817d88a9981a6f17"
+    },
+    {
+      "class_id": 2,
+      "result_code": 3,
+      "name": "细盐",
+      "source": "salt.jpg",
+      "source_sha256": "c3a49c0ed0149136aa7eb73933b35b3b27835e2f5ea93a8aaf0612e53b3c75a0",
+      "source_dimensions": [
+        3986,
+        3303
+      ],
+      "crop_ltrb": [
+        0,
+        400,
+        3986,
+        3057
+      ],
+      "output_dimensions": [
+        144,
+        96
+      ],
+      "bytes": 27648,
+      "rgb565le_sha256": "0bc7cb4d5d4d9badb0b1171f74eab8208a950b86996c521cb888c2775abf591c"
+    },
+    {
+      "class_id": 3,
+      "result_code": 4,
+      "name": "白砂糖",
+      "source": "sugar.jpg",
+      "source_sha256": "99fa0a35c2b66a98cc6f0d8850388c3c8366961f4177b0454ac6d54efa2c7e80",
+      "source_dimensions": [
+        2304,
+        1728
+      ],
+      "crop_ltrb": [
+        0,
+        96,
+        2304,
+        1632
+      ],
+      "output_dimensions": [
+        144,
+        96
+      ],
+      "bytes": 27648,
+      "rgb565le_sha256": "366d6b611f8700b1336d74eb733fc83d65855328cbc6fda19d9d6d686c7d0cd5"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+# 保留根目录基础配置与说明
+!.gitignore
+!README.md
+
+
+# 忽略构建缓存、EDA 与 IDE 临时生成物
+.Xil/
+*.cache/
+*.hw/
+*.sim/
+*.runs/
+*.ip_user_files/
+*.jou
+*.log
+*.pb
+*.str
+*.dcp
+*.wdb
+*.vds
+*.rpt
+
+# 忽略 STM32/ARM 编译中间产物
+build_vote20/
+*.o
+*.d
+*.obj
+*.map
+*.crf
+*.dep
+*.axf
+*.lst
+
+# 忽略可烧录固件二进制（通过 Release 发布）
+*.bit
+*.mcs
+*.prm
+*.bin
+*.hex
+*.elf
+
+# 忽略通用 Python 缓存与环境
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.venv/
+env/
+venv/
+
+# 忽略 IDE 与辅助配置
+.vscode/
+.idea/
+.vs/
+.agents/
+GEMINI.md
+setup-agents.*
+*.tmp
+*.bak

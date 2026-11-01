@@ -1,0 +1,162 @@
+[
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 65167.74837519191,
+    "part_id": "P01",
+    "name": "P01_ANALOG_base",
+    "quantity": 1,
+    "print_dimensions_mm": [
+      140.0,
+      110.0,
+      5.0
+    ],
+    "sha256": "d1c6a928ebf3bf8c05b62a63abac3c9d283ab424c2e4b6fbe67dce46f72ebbdb",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 1041.6568498894203,
+    "part_id": "P08",
+    "name": "P08_foot_ANALOG1",
+    "quantity": 12,
+    "print_dimensions_mm": [
+      14.0,
+      14.0,
+      8.0
+    ],
+    "sha256": "91fec3218d5ec952c1467ebd3a8942c5862f5d2e0986b709095aba123301932c",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 110008.08515686505,
+    "part_id": "P02",
+    "name": "P02_FPGA_base",
+    "quantity": 1,
+    "print_dimensions_mm": [
+      180.0,
+      160.0,
+      5.0
+    ],
+    "sha256": "43f74f36000488a1584ad5f7f6f35b3e28a6cffd4ae66179245101c439e1182e",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 73349.35728230688,
+    "part_id": "P03",
+    "name": "P03_STM32_base",
+    "quantity": 1,
+    "print_dimensions_mm": [
+      140.0,
+      130.0,
+      5.0
+    ],
+    "sha256": "451aff8ae4ac2c3b3c9d69dbe5b20ea205b71feeb37c8ef3d340f58b5a423a26",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 2449.9862123362964,
+    "part_id": "P07",
+    "name": "P07_link_0_0",
+    "quantity": 4,
+    "print_dimensions_mm": [
+      40.0,
+      16.0,
+      4.0
+    ],
+    "sha256": "72a910690a93069f9bb97b132e780eefc33df6acb014f416d32122d35f8a1f29",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 14364.822551051071,
+    "part_id": "P04",
+    "name": "P04_analog_left",
+    "quantity": 1,
+    "print_dimensions_mm": [
+      107.0,
+      35.0,
+      24.0000057220459
+    ],
+    "sha256": "fb0725cf0da76fed8863729a2df89ee07f35dc91f534e38f8f3f425496a14219",
+    "notes": "STL already lies on the flat outer side. Check horizontal M3 bores in slicer; deburr 2.4 mm PCB guide."
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 13721.719392521158,
+    "part_id": "P05",
+    "name": "P05_analog_right",
+    "quantity": 1,
+    "print_dimensions_mm": [
+      107.0,
+      35.0,
+      24.0
+    ],
+    "sha256": "30d6e929fa383aec87a17a857d3ce3e7622bb2979ba37eca54b09ba69294b1be",
+    "notes": "STL already lies on the flat outer side. Check horizontal M3 bores in slicer; deburr 2.4 mm PCB guide."
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 906.387412010173,
+    "part_id": "P06",
+    "name": "P06_FPGA_slider_1",
+    "quantity": 8,
+    "print_dimensions_mm": [
+      32.00001525878906,
+      12.000003814697266,
+      3.0
+    ],
+    "sha256": "da397270ce72eb253bfe9087a07e95cdec7626af074224e2d137ffa5ce60502e",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 272.6639883005151,
+    "part_id": "P10",
+    "name": "P10_FPGA_pedestal_1",
+    "quantity": 8,
+    "print_dimensions_mm": [
+      10.0,
+      10.0,
+      4.0
+    ],
+    "sha256": "a3b7872900b95efd206bed37d416340c18c455d65b67ac2d3bc59952665f5fea",
+    "notes": ""
+  },
+  {
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0,
+    "components": 1,
+    "volume_mm3": 12293.453501361219,
+    "part_id": "P09",
+    "name": "P09_fit_coupon",
+    "quantity": 1,
+    "print_dimensions_mm": [
+      76.0,
+      28.0,
+      13.0
+    ],
+    "sha256": "1c54a19e9e72d31c5babac93b46c10f4b559c90e1c4a6ed0565706b29f3a938c",
+    "notes": "Coupon only, not an assembly component. Slots left-to-right 2.0 / 2.2 / 2.4 mm; bores 3.4 / 3.6 / 3.8 mm."
+  }
+]

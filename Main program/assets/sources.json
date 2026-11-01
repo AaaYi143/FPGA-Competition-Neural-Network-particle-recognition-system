@@ -1,0 +1,60 @@
+{
+  "retrieved_date": "2026-10-24",
+  "purpose": "Display-only material illustrations, not training or inference input",
+  "images": [
+    {
+      "class_id": 0,
+      "result_code": 1,
+      "name": "小米",
+      "title": "Milletgrains.png",
+      "author": "Zigzig20s; file history includes an edit by Penubag",
+      "page": "https://commons.wikimedia.org/wiki/File:Milletgrains.png",
+      "download": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Milletgrains.png",
+      "license": "Public domain (PD-self)",
+      "license_evidence": "Author's worldwide public-domain dedication on the source page",
+      "local_original": "originals/millet.png",
+      "derivative": "Crop, resize and RGB565 quantization; remains public domain"
+    },
+    {
+      "class_id": 1,
+      "result_code": 2,
+      "name": "珍珠粉",
+      "title": "珍珠粉和贝壳粉的鉴别研究, Figure 2(a)",
+      "author": "李月; 李晶 (Yue Li; Jing Li)",
+      "page": "https://doi.org/10.12677/japc.2025.143044",
+      "download": "https://pdf.hanspub.org/japc_2370393.pdf",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_evidence": "PDF physical page 2 states CC BY 4.0",
+      "local_original": "originals/pearl_paper.pdf",
+      "selected_panel": "PDF physical page 4, printed page 475, Figure 2(a), left image /Im0 (NOT shell powder /Im1)",
+      "derivative": "Extracted photo, crop, resize and RGB565 quantization; CC BY 4.0"
+    },
+    {
+      "class_id": 2,
+      "result_code": 3,
+      "name": "细盐",
+      "title": "Table salt with salt shaker V1.jpg",
+      "author": "Poyraz 72; EXIF author Kadri Damla",
+      "page": "https://commons.wikimedia.org/wiki/File:Table_salt_with_salt_shaker_V1.jpg",
+      "download": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Table_salt_with_salt_shaker_V1.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "local_original": "originals/salt.jpg",
+      "derivative": "Crop, resize and RGB565 quantization; CC BY-SA 4.0"
+    },
+    {
+      "class_id": 3,
+      "result_code": 4,
+      "name": "白砂糖",
+      "title": "Sugarpile.JPG",
+      "author": "Drtony999",
+      "page": "https://commons.wikimedia.org/wiki/File:Sugarpile.JPG",
+      "download": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Sugarpile.JPG",
+      "license": "CC BY-SA 3.0 (selected from source's dual licensing)",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "local_original": "originals/sugar.jpg",
+      "derivative": "Crop, resize and RGB565 quantization; CC BY-SA 3.0"
+    }
+  ]
+}
