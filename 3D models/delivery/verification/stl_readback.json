@@ -1,0 +1,152 @@
+[
+  {
+    "file": "P01_ANALOG_base.stl",
+    "triangles": 5986,
+    "vertices": 2927,
+    "dimensions_mm": [
+      140.0,
+      110.0,
+      5.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 65167.74218773363
+  },
+  {
+    "file": "P02_FPGA_base.stl",
+    "triangles": 12392,
+    "vertices": 6038,
+    "dimensions_mm": [
+      180.0,
+      160.0,
+      5.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 110008.07689373592
+  },
+  {
+    "file": "P03_STM32_base.stl",
+    "triangles": 7160,
+    "vertices": 3496,
+    "dimensions_mm": [
+      140.0,
+      130.0,
+      5.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 73349.35111467072
+  },
+  {
+    "file": "P04_analog_left.stl",
+    "triangles": 628,
+    "vertices": 310,
+    "dimensions_mm": [
+      107.0,
+      35.0,
+      24.00001
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 14364.820178425987
+  },
+  {
+    "file": "P05_analog_right.stl",
+    "triangles": 572,
+    "vertices": 282,
+    "dimensions_mm": [
+      107.0,
+      35.0,
+      24.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 13721.71200387833
+  },
+  {
+    "file": "P06_FPGA_slider_1.stl",
+    "triangles": 328,
+    "vertices": 164,
+    "dimensions_mm": [
+      32.00002,
+      12.0,
+      3.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 906.3863550749295
+  },
+  {
+    "file": "P07_link_0_0.stl",
+    "triangles": 580,
+    "vertices": 288,
+    "dimensions_mm": [
+      40.0,
+      16.0,
+      4.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 2449.9835676062894
+  },
+  {
+    "file": "P08_foot_ANALOG1.stl",
+    "triangles": 412,
+    "vertices": 206,
+    "dimensions_mm": [
+      14.0,
+      14.0,
+      8.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 1041.6568338467687
+  },
+  {
+    "file": "P09_fit_coupon.stl",
+    "triangles": 872,
+    "vertices": 432,
+    "dimensions_mm": [
+      76.0,
+      28.0,
+      13.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 12293.453047032624
+  },
+  {
+    "file": "P10_FPGA_pedestal_1.stl",
+    "triangles": 384,
+    "vertices": 192,
+    "dimensions_mm": [
+      10.0,
+      10.0,
+      4.0
+    ],
+    "open_or_nonmanifold_edges": 0,
+    "inconsistent_edge_winding": 0,
+    "degenerate_triangles": 0,
+    "flipped_stored_normals": 0,
+    "volume_mm3": 272.6641560371502
+  }
+]

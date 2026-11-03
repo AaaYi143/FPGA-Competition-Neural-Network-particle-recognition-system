@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "execution": "Actual particle_ui.c + actual glyphs, fonts and image arrays; host-only LCD adapter",
+  "dimensions": [
+    240,
+    320
+  ],
+  "snapshots": 12,
+  "all_draws_in_bounds": true,
+  "full_screen_clears": 1,
+  "image_windows": 5,
+  "duplicate_no_redraw": true,
+  "category_stable_no_image_redraw": true,
+  "visual_review": "Chinese readable; RGB565 photos visible; percent/name/progress/status do not overlap. Short-text tail artifacts corrected and rerun.",
+  "preview": "ui_contact_sheet.png",
+  "empty_to_material_numeric_tail_checked": true,
+  "physical_lcd_tested": false
+}

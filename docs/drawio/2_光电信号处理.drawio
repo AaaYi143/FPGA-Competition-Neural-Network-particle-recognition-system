@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity Draw.io Generator" version="24.7.5" type="device">
+  <diagram id="diag_2_optics" name="2_光电信号处理">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="header_title" value="前端激光衍射光学系统与多通道光电信号调理链路框图（含 FPGA 闭环时序控制）" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#1E3A8A;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#FFFFFF;fontStyle=1;fontSize=18;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="1520" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_opt" value="① 激光衍射与散射光学传感链路" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#EBF5FF;strokeColor=#2563EB;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#1E3A8A;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="440" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_ana" value="② 双片 ADG1206 多路复用与 OP37 跨阻/程控放大调理板" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#065F46;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="515" y="80" width="560" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c2_fpga" value="③ FPGA 片上 XADC 采集与闭环选通/增益控制器" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#92400E;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="80" width="450" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="footer_legend" value="&lt;b&gt;图例说明：&lt;/b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#DC2626'&gt;&lt;b&gt;━━▶ 激光/衍射光路&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#059669'&gt;&lt;b&gt;━━▶ 模拟电流/电压信号&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#1D4ED8'&gt;&lt;b&gt;━━▶ FPGA内部高速数字流&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#D97706'&gt;&lt;b&gt;┄┄▶ FPGA闭环选通/增益/开关控制&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#7C3AED'&gt;&lt;b&gt;━━▶ UART串口/外设通信链路&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;系统核心指标：&lt;/b&gt;传感器：32环硅光电阵列 | 模拟开关：双片 ADG1206 | 运放：OP37 (±5V) | 稳态采样率：160.26 kSa/s" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=1.5;align=left;verticalAlign=middle;spacingLeft=15;fontSize=11;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="830" width="1520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="o2_laser" value="&lt;b&gt;单模半导体激光器&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;中心波长 λ = 650 nm | 额定功率 15 mW&lt;br&gt;输出高单色性、高相干性初始激光束&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="130" width="380" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="o2_beam" value="&lt;b&gt;准直扩束透镜组&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;短焦扩束透镜 f1 = 10 mm + 长焦准直透镜 f2 = 150 mm&lt;br&gt;滤除杂散光并扩展为直径均匀的平行平面波光束&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="255" width="380" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="o2_sample" value="&lt;b&gt;石英样品池（待测微粒比色皿）&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;被测颗粒：小米 / 珍珠粉 / 细盐 / 白砂糖&lt;br&gt;产生物理光学效应：夫琅禾费衍射 &amp; 米氏散射&lt;br&gt;（大颗粒 → 小角度散射 | 小颗粒 → 大角度散射）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="385" width="380" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="o2_fourier" value="&lt;b&gt;傅里叶变换透镜（凸透镜）&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;光学焦距 f = 150 mm | 空间频谱变换：r = f · tan(θ)&lt;br&gt;将相同散射角 θ 的散射光汇聚至后焦面同一半径圆环&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="530" width="380" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="o2_sensor" value="&lt;b&gt;32 通道同心半环硅光电探测器阵列&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;环 0 ~ 30：由内向外采集 31 级不同散射角光强分布&lt;br&gt;环 31：中心孔透射光强实时监测（本底光强基准）&lt;br&gt;接口 U4：37-Pin 排母（32路 SENSOR_RAW[0:31] + 5路交错 AGND 屏蔽）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="665" width="380" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_mux_even" value="&lt;b&gt;ADG1206YRUZ #1（偶数通道模拟开关）&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;16:1 高速低电荷注入 CMOS 模拟多路复用器&lt;br&gt;接入偶数环：Ch 0, 2, 4, ..., 30（共 16 路光电流）&lt;br&gt;片选使能端：ADG1_EN（高电平有效）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="545" y="130" width="235" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_mux_odd" value="&lt;b&gt;ADG1206YRUZ #2（奇数通道模拟开关）&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;16:1 高速低电荷注入 CMOS 模拟多路复用器&lt;br&gt;接入奇数环：Ch 1, 3, 5, ..., 31（共 16 路光电流）&lt;br&gt;片选使能端：ADG2_EN（高电平有效）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="810" y="130" width="235" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_addr" value="&lt;b&gt;32 选 1 奇偶分路选通译码接口&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;共享 4 位片内寻址线 AGD_LOGIC[3:0] (S1~S16) + 双片独立使能 ADG1_EN / ADG2_EN&lt;br&gt;实现 32 路微弱光电流无串扰分时复用合流 (MUX_OUT)&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="545" y="290" width="500" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_op37" value="&lt;b&gt;OP37 低噪声精密跨阻放大器 (TIA)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;±5V 双极性稳压供电 (VDD=+5V, VSS=-5V) | 高增益带宽积、皮安级超低输入偏置电流&lt;br&gt;将选通后的 pA ~ μA 级微弱光电流精准转换为低阻电压信号（含中心环独立 TIA 通路）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="545" y="405" width="500" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_pga" value="&lt;b&gt;8 档程控增益反馈电阻网络 (PGA)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;跨接于 OP37 反相输入端与输出端的多路精密反馈电阻阵列 Rf[0:7]&lt;br&gt;受 FPGA 8位控制总线 opEnResistor[7:0] 动态选通，适配不同粒径/浓度下的宽动态范围光强&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="545" y="535" width="500" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_filter" value="&lt;b&gt;5:1 精密电阻分压与一阶 RC 抗混叠滤波器&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;5:1 精密分压网络将运放 ±5V 输出摆幅线性收敛至 0 ~ 1.0 V 单极性安全量程&lt;br&gt;一阶 RC 低通滤波消除模拟开关切换毛刺与高频热噪声，经 SMA 同轴电缆 (RF1) 输出&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="545" y="670" width="500" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="f2_xadc" value="&lt;b&gt;Artix-7 片上 12-bit XADC 核 (xadc_wiz_0)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;差分模拟输入引脚：VauxP[0] (D14) / VauxN[0] (C14)&lt;br&gt;模拟量程：0 ~ 1.0 V | 转换时钟 ADCCLK = 25 MHz&lt;br&gt;单次转换 26 Cycles (1.04 μs)，底层连续采样率 961,538 Sa/s&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="140" width="390" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="f2_fsm" value="&lt;b&gt;6-EOC 通道稳态等待与锁存状态机 (ADC.sv)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;每个模拟通道持续打开 6 个 EOC 周期 (6.24 μs)&lt;br&gt;前 4 个 EOC (4.16 μs)：等待 ADG1206 与 OP37 彻底建立稳态&lt;br&gt;第 4 个 EOC 脉冲：精准锁存 12-bit 稳态数字量&lt;br&gt;有效稳态采样率：160,256 Sa/s | 32环全谱帧率：5,008 Hz&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="320" width="390" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="f2_ctrl" value="&lt;b&gt;闭环通道轮询与 PGA 程控增益控制器&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;1. 通道选通总线 opChooseChannel[6:0]：&lt;br&gt;   查表循环输出 {ADG1_EN, ADG2_EN, A3, A2, A1, A0} 驱动双片 ADG1206&lt;br&gt;2. 增益控制总线 opEnResistor[7:0]：&lt;br&gt;   根据光强量程或上位机指令动态配置 OP37 跨阻反馈增益&lt;br&gt;（注：环境底噪扣除 SW7 在后续 FPGA 数字均值滤波后执行）&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="520" width="390" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_o1" value="650nm 激光" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DC2626;strokeWidth=2.5;fontColor=#991B1B;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o2_laser" target="o2_beam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_o2" value="准直平行光束" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DC2626;strokeWidth=2.5;fontColor=#991B1B;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o2_beam" target="o2_sample">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_o3" value="多角度散射/衍射光" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DC2626;strokeWidth=2.5;fontColor=#991B1B;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o2_sample" target="o2_fourier">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_o4" value="焦平面同心圆环光斑" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DC2626;strokeWidth=2.5;fontColor=#991B1B;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o2_fourier" target="o2_sensor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_s_even" value="偶数环光电流 Ch0,2..30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.33;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o2_sensor" target="a2_mux_even">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="495" y="705" />
+              <mxPoint x="495" y="192" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2_s_odd" value="奇数环光电流 Ch1,3..31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.67;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o2_sensor" target="a2_mux_odd">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="745" />
+              <mxPoint x="505" y="105" />
+              <mxPoint x="927" y="105" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2_m1" value="偶数路选通" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.23;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2_mux_even" target="a2_addr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_m2" value="奇数路选通" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.77;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2_mux_odd" target="a2_addr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_m3" value="选通微安级光电流 MUX_OUT" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2_addr" target="a2_op37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_m4" value="跨阻反馈回路 Rf" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2_pga" target="a2_op37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_m5" value="放大模拟电压 (±5V)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2_op37" target="a2_filter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="452" />
+              <mxPoint x="530" y="727" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2_to_xadc" value="0~1.0V 单极性电压 (SMA/RF1)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2_filter" target="f2_xadc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1092" y="727" />
+              <mxPoint x="1092" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2_f1" value="12-bit 采样流 &amp; EOC脉冲" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f2_xadc" target="f2_fsm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_f2" value="通道递增触发 (每 6 EOC)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="f2_fsm" target="f2_ctrl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_fb_mux" value="opChooseChannel[6:0] ({ADG1_EN, ADG2_EN, A[3:0]})" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.3;exitDx=0;exitDy=0;;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f2_ctrl" target="a2_addr">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1102" y="575" />
+              <mxPoint x="1102" y="327" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2_fb_pga" value="opEnResistor[7:0] (8档跨阻增益选通)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.68;exitDx=0;exitDy=0;;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f2_ctrl" target="a2_pga">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="645" />
+              <mxPoint x="1045" y="582" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

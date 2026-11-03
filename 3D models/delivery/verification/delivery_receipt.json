@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-23",
+  "status": "R1_trial_fit",
+  "original_sha256": "e030f526c44cf27c97bbc8f99ce5f1df5bf257ee6b5bc4dcd8d7e3f2ac923421",
+  "original_unchanged": true,
+  "blend_sha256": "a24f3f15e6af16ae80c2e00d15b416db4d274d863a7ec7db0db8229c62630d3b",
+  "unique_print_parts": 10,
+  "assembly_print_quantity": 37,
+  "coupon_quantity": 1,
+  "stl_readback_passed": true,
+  "blend_reopened": true,
+  "original_electronic_surface_intersections": 0,
+  "physical_fit_verified": false,
+  "fpga_dimensions_confirmed": false,
+  "stm32_physical_revision_confirmed": false,
+  "printer_slicing_or_gcode_generated": false,
+  "notes": [
+    "No FPGA/STM32 firmware or dataset changes.",
+    "Blender thumbnail cache write was denied; final BLEND saved and reopened successfully."
+  ],
+  "source_dimensions": {
+    "analog_pcb_from_supplied_model_mm": [
+      100.0892,
+      1.6385,
+      100.089
+    ],
+    "fpga_placeholder_mm": [
+      150,
+      110,
+      1.6
+    ],
+    "stm32_document_placeholder_mm": [
+      108.4,
+      80,
+      1.6
+    ]
+  }
+}

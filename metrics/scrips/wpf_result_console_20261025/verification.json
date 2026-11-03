@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "updated_file": "C:\\Users\\cyka1\\Downloads\\MainWindow.xaml.cs",
+  "updated_sha256": "7fa7f911216d89d24f916d1d2a4929159953b17398b79ecfce5df6fb9e49e9ca",
+  "backup": "C:/Users/cyka1/Downloads/MainWindow.xaml.cs.before_result_parser_20261025.bak",
+  "original_sha256": "590df1c2298d9ed56cca63f3e26465d5ff7d24d3c229d3706c18846ff8afa61d",
+  "wpf_compile_check": "passed with compile-only XAML stub; original XAML not supplied",
+  "parser_checks": 4125,
+  "rtl_packets_stm": 274,
+  "rtl_packets_pc": 273,
+  "serial_port_opened": false,
+  "physical_serial_tested": false
+}

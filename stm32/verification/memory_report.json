@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "target": "STM32F103RCT6",
+  "flash_used_bytes": 126932,
+  "flash_capacity_bytes": 262144,
+  "ram_reserved_and_static_bytes": 5344,
+  "ram_capacity_bytes": 49152,
+  "rx_ring_usable_bytes": 2047,
+  "rx_full_rate_buffer_ms": 177.69097222222223,
+  "data_bytes": 132,
+  "bss_bytes": 2652,
+  "heap_stack_reserved_bytes": 2560,
+  "image_flash_bytes": 110592,
+  "framebuffer_in_firmware": false,
+  "physical_flash_performed": false,
+  "artifacts": {
+    "STM32_PARTICLE_VOTE20.bin": "400d34d879db7a85168df070522ddc8d51969ff0a87228a81e6f3ba3eb0148e5",
+    "STM32_PARTICLE_VOTE20.elf": "ee11859e71e2a1c310494c0825d706358dce700969b8169dd99d39a04cef76c5",
+    "STM32_PARTICLE_VOTE20.hex": "81eb93b41f6d19fe58f72b677779ab2046157a382c3f41492e5edafc74848ece"
+  }
+}

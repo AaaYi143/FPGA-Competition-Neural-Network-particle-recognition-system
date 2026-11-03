@@ -1,0 +1,28 @@
+build_vote20/F103RC_Particle_Display.elf  :
+section                size        addr
+.isr_vector             484   134217728
+.text                 12820   134218212
+.rodata              113488   134231032
+.ARM.extab                0   134344520
+.ARM                      0   134344520
+.preinit_array            0   134344520
+.init_array               4   134344520
+.fini_array               4   134344524
+.data                   132   536870912
+.bss                   2652   536871044
+._user_heap_stack      2560   536873696
+.ARM.attributes          41           0
+.debug_info           59446           0
+.debug_abbrev         12106           0
+.debug_loclists       21080           0
+.debug_aranges         2760           0
+.debug_rnglists        2775           0
+.debug_macro         130777           0
+.debug_line           74998           0
+.debug_str           755578           0
+.comment                 67           0
+.debug_frame           9444           0
+.debug_line_str         134           0
+Total               1201350
+
+

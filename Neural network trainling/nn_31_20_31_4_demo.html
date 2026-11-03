@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FPGA 激光粒度分析仪 · 31-20-31-4 深度神经网络定点推理演示系统</title>
+<style>
+/* ==========================================================================
+   CSS 变量与双主题工程调色 (深邃曜石黑 / 学术白昼)
+   ========================================================================== */
+:root {
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "JetBrains Mono", "Liberation Mono", monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 暗色模式 (深邃曜石黑 · 默认) */
+[data-theme="dark"] {
+  --bg-primary: #070b13;
+  --bg-secondary: #0c1322;
+  --bg-tertiary: #131c30;
+  --bg-panel: rgba(15, 23, 42, 0.88);
+  --bg-panel-solid: #0f172a;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-focus: #38bdf8;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --accent-pos: #38bdf8;
+  --accent-pos-glow: rgba(56, 189, 248, 0.45);
+  --accent-neg: #f59e0b;
+  --accent-neg-glow: rgba(245, 158, 11, 0.4);
+  --accent-winner: #10b981;
+  --accent-winner-glow: rgba(16, 185, 129, 0.4);
+  --node-fill: #1e293b;
+  --node-border: #475569;
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+  --card-winner-bg: rgba(16, 185, 129, 0.12);
+  --card-winner-border: #10b981;
+  --btn-bg: #1e293b;
+  --btn-border: rgba(255, 255, 255, 0.12);
+  --btn-hover: #334155;
+  --btn-active-bg: #0284c7;
+  --btn-active-text: #ffffff;
+}
+
+/* 亮色模式 (学术白昼 · 投影仪高对比适配) */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --bg-panel: rgba(255, 255, 255, 0.94);
+  --bg-panel-solid: #ffffff;
+  --border-color: rgba(15, 23, 42, 0.12);
+  --border-hover: rgba(15, 23, 42, 0.22);
+  --border-focus: #0284c7;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  --accent-pos: #0284c7;
+  --accent-pos-glow: rgba(2, 132, 199, 0.35);
+  --accent-neg: #d97706;
+  --accent-neg-glow: rgba(217, 119, 6, 0.35);
+  --accent-winner: #059669;
+  --accent-winner-glow: rgba(5, 150, 105, 0.3);
+  --node-fill: #f8fafc;
+  --node-border: #94a3b8;
+  --grid-line: rgba(15, 23, 42, 0.045);
+  --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  --card-winner-bg: rgba(5, 150, 105, 0.08);
+  --card-winner-border: #059669;
+  --btn-bg: #ffffff;
+  --btn-border: rgba(15, 23, 42, 0.15);
+  --btn-hover: #f1f5f9;
+  --btn-active-bg: #0284c7;
+  --btn-active-text: #ffffff;
+}
+
+/* ==========================================================================
+   全局重置与瑞士网格框架
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ==========================================================================
+   顶部控制栏 (Top Bar)
+   ========================================================================== */
+.top-bar {
+  height: 52px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 50;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.5);
+}
+.brand-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent-pos);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+/* 控制组件组 */
+.control-groups {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.btn-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 1px;
+}
+
+.btn-sm {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.btn-sm:hover {
+  color: var(--text-main);
+  background: var(--btn-hover);
+}
+.btn-sm.active {
+  background: var(--btn-active-bg);
+  color: var(--btn-active-text);
+  font-weight: 600;
+}
+
+/* 速度与对比度微调器 */
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+.slider-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.slider-val {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent-pos);
+  width: 32px;
+  text-align: right;
+}
+.custom-slider {
+  width: 60px;
+  height: 4px;
+  -webkit-appearance: none;
+  background: var(--border-color);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-pos);
+  cursor: pointer;
+  box-shadow: 0 0 6px var(--accent-pos-glow);
+}
+
+/* 右侧工具组 */
+.tool-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   主工作区 (三栏布局: 左侧环光能 + 中间拓扑画布 + 右侧判决卡片)
+   ========================================================================== */
+.main-stage {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 左侧 31 环输入面板 */
+.input-panel {
+  width: 200px;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  flex-shrink: 0;
+}
+.panel-header {
+  height: 36px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.panel-header .tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent-pos);
+}
+.rings-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+}
+.rings-container::-webkit-scrollbar {
+  width: 4px;
+}
+.rings-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+.ring-row {
+  display: flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.ring-row:hover, .ring-row.active {
+  background: var(--bg-tertiary);
+}
+.ring-idx {
+  width: 26px;
+  color: var(--text-dim);
+  font-size: 9.5px;
+}
+.ring-bar-bg {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  margin: 0 6px;
+  overflow: hidden;
+  position: relative;
+}
+.ring-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-pos), #6366f1);
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+.ring-val {
+  width: 32px;
+  text-align: right;
+  color: var(--text-muted);
+  font-size: 9.5px;
+}
+
+/* 中间 Canvas 区域 */
+.canvas-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+canvas.layer-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 画布顶层说明栏 */
+.layer-headers {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+  z-index: 10;
+  padding: 0 20px;
+}
+.layer-badge {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.layer-badge span.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-pos);
+}
+
+/* 右侧判决结果面板 */
+.output-panel {
+  width: 250px;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  flex-shrink: 0;
+  padding: 12px;
+  gap: 12px;
+}
+
+.output-cards-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.decision-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.decision-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: transparent;
+  transition: background var(--transition-fast);
+}
+.decision-card.winner {
+  background: var(--card-winner-bg);
+  border-color: var(--card-winner-border);
+  box-shadow: 0 0 16px var(--accent-winner-glow);
+  transform: translateX(-4px);
+}
+.decision-card.winner::before {
+  background: var(--accent-winner);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-class-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.card-winner-badge {
+  display: none;
+  background: var(--accent-winner);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+.decision-card.winner .card-winner-badge {
+  display: inline-block;
+}
+
+.card-name-cn {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.card-name-en {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.card-meter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+.card-progress-bg {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.card-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-pos);
+  border-radius: 3px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+}
+.decision-card.winner .card-progress-fill {
+  background: var(--accent-winner);
+}
+.card-prob-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  width: 42px;
+  text-align: right;
+  color: var(--text-muted);
+}
+.decision-card.winner .card-prob-val {
+  color: var(--accent-winner);
+}
+
+.card-logit-val {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 4px;
+}
+
+/* ==========================================================================
+   单神经元悬停探针浮窗 (HUD Probe / Inspector)
+   ========================================================================== */
+.neuron-inspector {
+  position: absolute;
+  bottom: 12px;
+  left: 212px;
+  width: 330px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--card-shadow);
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.neuron-inspector.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.inspector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.inspector-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.inspector-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-pos);
+}
+.inspector-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  font-size: 10.5px;
+}
+.inspector-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.inspector-item-label {
+  color: var(--text-dim);
+  font-size: 9.5px;
+}
+.inspector-item-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* 贡献度 Mini Sparkline Bar */
+.contrib-list {
+  grid-column: span 2;
+  margin-top: 4px;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.contrib-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+}
+.contrib-name {
+  width: 55px;
+  color: var(--text-dim);
+}
+.contrib-bar-bg {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.contrib-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+.contrib-val {
+  width: 32px;
+  text-align: right;
+  color: var(--text-muted);
+}
+
+/* 快捷键帮助浮层 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show {
+  display: flex;
+}
+.shortcuts-modal {
+  background: var(--bg-panel-solid);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  width: 380px;
+  box-shadow: var(--card-shadow);
+}
+.shortcuts-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.shortcuts-table {
+  width: 100%;
+  font-size: 12px;
+  border-collapse: collapse;
+}
+.shortcuts-table td {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.shortcuts-table kbd {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-hover);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* ==========================================================================
+   底部硬件流水线状态栏 (Bottom Status Bar)
+   ========================================================================== */
+.bottom-bar {
+  height: 38px;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 50;
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.pipeline-stages {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  transition: all var(--transition-fast);
+}
+.pipeline-step.active {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--accent-pos);
+  color: var(--accent-pos);
+  font-weight: 600;
+  box-shadow: 0 0 8px var(--accent-pos-glow);
+}
+.pipeline-arrow {
+  color: var(--border-color);
+  font-size: 10px;
+}
+
+.hardware-metrics {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+}
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.metric-pill strong {
+  color: var(--text-main);
+}
+</style>
+</head>
+<body data-theme="dark">
+<div class="app-wrapper">
+
+  <!-- 顶部控制栏 -->
+  <header class="top-bar">
+    <div class="brand-section">
+      <div class="brand-logo">FPGA</div>
+      <div class="brand-title">
+        31-20-31-4 神经网络定点推理演示
+        <span class="brand-badge">RTL BIT-EXACT</span>
+      </div>
+    </div>
+
+    <!-- 中间控制选项 -->
+    <div class="control-groups">
+      <!-- 样本选择组 -->
+      <div class="btn-group">
+        <button class="btn-sm active" id="btn-sample-0" onclick="switchClass(0)">00 小米</button>
+        <button class="btn-sm" id="btn-sample-1" onclick="switchClass(1)">01 玻璃珠</button>
+        <button class="btn-sm" id="btn-sample-2" onclick="switchClass(2)">02 白砂糖</button>
+        <button class="btn-sm" id="btn-sample-3" onclick="switchClass(3)">03 细盐</button>
+      </div>
+
+      <!-- 子样本编号 -->
+      <div class="btn-group">
+        <button class="btn-sm active" id="btn-sub-1" onclick="switchSubSample(1)">#1</button>
+        <button class="btn-sm" id="btn-sub-2" onclick="switchSubSample(2)">#2</button>
+        <button class="btn-sm" id="btn-sub-3" onclick="switchSubSample(3)">#3</button>
+      </div>
+
+      <!-- 动态噪声注入测试 -->
+      <div class="slider-wrapper" title="向 31 路输入注入随机光学扰动，测试模型鲁棒性">
+        <span class="slider-label">扰动</span>
+        <input type="range" class="custom-slider" id="noise-slider" min="0" max="30" step="1" value="0" oninput="onNoiseChange(this.value)">
+        <span class="slider-val" id="noise-val-display">0%</span>
+      </div>
+
+      <!-- 推理模式 (波次 / 流水线) -->
+      <div class="btn-group">
+        <button class="btn-sm active" id="btn-mode-wave" onclick="setMode('wave')">波次推进</button>
+        <button class="btn-sm" id="btn-mode-pipe" onclick="setMode('pipeline')">流水线连续流</button>
+      </div>
+
+      <!-- 颗粒密度 -->
+      <div class="btn-group">
+        <button class="btn-sm" id="btn-density-lite" onclick="setDensity('lite')">精简</button>
+        <button class="btn-sm active" id="btn-density-std" onclick="setDensity('std')">标准</button>
+        <button class="btn-sm" id="btn-density-full" onclick="setDensity('full')">全量1364路</button>
+      </div>
+
+      <!-- 运算速度调节 -->
+      <div class="slider-wrapper">
+        <span class="slider-label">速度</span>
+        <input type="range" class="custom-slider" id="speed-slider" min="0.1" max="4.0" step="0.1" value="1.0" oninput="onSpeedChange(this.value)">
+        <span class="slider-val" id="speed-val-display">1.0×</span>
+      </div>
+
+      <!-- 快捷倍速档位 -->
+      <div class="btn-group">
+        <button class="btn-sm" onclick="setSpeedPreset(0.25)">0.25×</button>
+        <button class="btn-sm" onclick="setSpeedPreset(0.5)">0.5×</button>
+        <button class="btn-sm active" id="btn-spd-1" onclick="setSpeedPreset(1.0)">1.0×</button>
+        <button class="btn-sm" onclick="setSpeedPreset(2.0)">2.0×</button>
+        <button class="btn-sm" onclick="setSpeedPreset(4.0)">4.0×</button>
+      </div>
+    </div>
+
+    <!-- 右侧动作按钮 -->
+    <div class="tool-section">
+      <!-- 连线对比度滑块 -->
+      <div class="slider-wrapper" title="调节底层 1,364 条连线对比度以适应投影幕布">
+        <span class="slider-label">对比度</span>
+        <input type="range" class="custom-slider" id="contrast-slider" min="0.3" max="2.0" step="0.1" value="1.0" oninput="onContrastChange(this.value)">
+      </div>
+
+      <button class="btn-sm btn-icon" id="btn-play-pause" onclick="togglePlayPause()" title="播放/暂停 (Space)">⏸ 暂停</button>
+      <button class="btn-sm btn-icon" id="btn-step" onclick="stepForward()" title="单步推进一步 (→)">⏭ 单步</button>
+      <button class="btn-sm btn-icon" onclick="restartInference()" title="重新触发推理">🔄 重置</button>
+      <button class="btn-sm btn-icon" id="btn-curve-toggle" onclick="toggleLineStyle()" title="切换贝塞尔曲线/精密直线 (C)">〰 曲线</button>
+      <button class="btn-sm btn-icon" id="btn-theme-toggle" onclick="toggleTheme()" title="切换亮暗主题 (T)">🌓 主题</button>
+      <button class="btn-sm btn-icon" onclick="toggleShortcutsModal()" title="快捷键帮助 (?)">⌨ 帮助</button>
+      <button class="btn-sm btn-icon" onclick="toggleFullscreen()" title="全屏演示 (F)">⛶ 全屏</button>
+    </div>
+  </header>
+
+  <!-- 主工作区 -->
+  <main class="main-stage">
+    
+    <!-- 左侧 31 环输入面板 -->
+    <aside class="input-panel">
+      <div class="panel-header">
+        <span>31 环光能输入</span>
+        <span class="tag">INT8 [-128,127]</span>
+      </div>
+      <div class="rings-container" id="rings-list">
+        <!-- 动态生成 31 个环的能量行 -->
+      </div>
+    </aside>
+
+    <!-- 中间 Canvas 拓扑视图 -->
+    <section class="canvas-container" id="canvas-container">
+      <div class="layer-headers">
+        <div class="layer-badge"><span class="dot"></span>输入层 L0 · 31 Ring 光能通道</div>
+        <div class="layer-badge"><span class="dot"></span>隐藏层 1 · 20 神经元 (620 MACs)</div>
+        <div class="layer-badge"><span class="dot"></span>隐藏层 2 · 31 神经元 (620 MACs)</div>
+        <div class="layer-badge"><span class="dot"></span>输出层 L3 · 4 判决分类 (124 MACs)</div>
+      </div>
+
+      <!-- 双层 Canvas：静态离屏缓存底图 + 动态 60FPS 颗粒图 -->
+      <canvas class="layer-canvas" id="bg-canvas"></canvas>
+      <canvas class="layer-canvas" id="fg-canvas"></canvas>
+
+      <!-- 悬停探针浮窗 (HUD Probe) -->
+      <div class="neuron-inspector" id="neuron-inspector">
+        <div class="inspector-header">
+          <div class="inspector-title">
+            <span id="insp-layer-name">隐藏层 1</span>
+            <span class="inspector-badge" id="insp-node-id">Node #00</span>
+          </div>
+          <span style="font-size:10px; color:var(--text-dim);" id="insp-type">FC1 MAC</span>
+        </div>
+        <div class="inspector-grid">
+          <div class="inspector-item">
+            <span class="inspector-item-label">22-bit 累加器原始值</span>
+            <span class="inspector-item-val" id="insp-raw-sum">+0</span>
+          </div>
+          <div class="inspector-item">
+            <span class="inspector-item-label">位移缩放 (Shift)</span>
+            <span class="inspector-item-val" id="insp-shift">>> 7 bits</span>
+          </div>
+          <div class="inspector-item">
+            <span class="inspector-item-label">HardSigmoid 激活输出</span>
+            <span class="inspector-item-val" id="insp-act-val">0</span>
+          </div>
+          <div class="inspector-item">
+            <span class="inspector-item-label">输入 / 输出突触度数</span>
+            <span class="inspector-item-val" id="insp-degrees">31 in / 31 out</span>
+          </div>
+          <div class="inspector-item" style="grid-column: span 2;">
+            <span class="inspector-item-label">相连权重范围 [Min, Max]</span>
+            <span class="inspector-item-val" id="insp-weight-range">[-64, +74]</span>
+          </div>
+          <div class="contrib-list" id="insp-contrib-list">
+            <span class="inspector-item-label">主要输入贡献分量 (Top 3):</span>
+            <!-- 动态生成贡献条 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右侧判决结果面板 -->
+    <aside class="output-panel">
+      <div class="panel-header" style="padding:0 4px;">
+        <span>FPGA 判决输出</span>
+        <span class="tag">ARGMAX</span>
+      </div>
+      <div class="output-cards-group">
+        <!-- 类别 0: 小米 -->
+        <div class="decision-card" id="card-class-0">
+          <div class="card-top">
+            <span class="card-class-tag">CLASS 00</span>
+            <span class="card-winner-badge">MATCH 99.8%</span>
+          </div>
+          <div class="card-name-cn">小米</div>
+          <div class="card-name-en">Setaria italica (Millet)</div>
+          <div class="card-meter-row">
+            <div class="card-progress-bg">
+              <div class="card-progress-fill" id="prob-bar-0"></div>
+            </div>
+            <span class="card-prob-val" id="prob-val-0">0.0%</span>
+          </div>
+          <div class="card-logit-val">
+            <span>22-bit Logits</span>
+            <span id="logit-val-0">+0</span>
+          </div>
+        </div>
+
+        <!-- 类别 1: 珍珠粉 / 玻璃珠 -->
+        <div class="decision-card" id="card-class-1">
+          <div class="card-top">
+            <span class="card-class-tag">CLASS 01</span>
+            <span class="card-winner-badge">MATCH 99.9%</span>
+          </div>
+          <div class="card-name-cn">珍珠粉 / 玻璃珠</div>
+          <div class="card-name-en">Pearl Powder / Glass Beads</div>
+          <div class="card-meter-row">
+            <div class="card-progress-bg">
+              <div class="card-progress-fill" id="prob-bar-1"></div>
+            </div>
+            <span class="card-prob-val" id="prob-val-1">0.0%</span>
+          </div>
+          <div class="card-logit-val">
+            <span>22-bit Logits</span>
+            <span id="logit-val-1">+0</span>
+          </div>
+        </div>
+
+        <!-- 类别 2: 白砂糖 -->
+        <div class="decision-card" id="card-class-2">
+          <div class="card-top">
+            <span class="card-class-tag">CLASS 02</span>
+            <span class="card-winner-badge">MATCH 98.6%</span>
+          </div>
+          <div class="card-name-cn">白砂糖</div>
+          <div class="card-name-en">Granulated Sugar</div>
+          <div class="card-meter-row">
+            <div class="card-progress-bg">
+              <div class="card-progress-fill" id="prob-bar-2"></div>
+            </div>
+            <span class="card-prob-val" id="prob-val-2">0.0%</span>
+          </div>
+          <div class="card-logit-val">
+            <span>22-bit Logits</span>
+            <span id="logit-val-2">+0</span>
+          </div>
+        </div>
+
+        <!-- 类别 3: 细盐 -->
+        <div class="decision-card" id="card-class-3">
+          <div class="card-top">
+            <span class="card-class-tag">CLASS 03</span>
+            <span class="card-winner-badge">MATCH 99.4%</span>
+          </div>
+          <div class="card-name-cn">细盐</div>
+          <div class="card-name-en">Refined Table Salt</div>
+          <div class="card-meter-row">
+            <div class="card-progress-bg">
+              <div class="card-progress-fill" id="prob-bar-3"></div>
+            </div>
+            <span class="card-prob-val" id="prob-val-3">0.0%</span>
+          </div>
+          <div class="card-logit-val">
+            <span>22-bit Logits</span>
+            <span id="logit-val-3">+0</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 底部状态栏 -->
+  <footer class="bottom-bar">
+    <div class="pipeline-stages">
+      <span style="font-weight:700; margin-right:4px; font-size:10px; color:var(--text-dim);">流水线阶段:</span>
+      <div class="pipeline-step" id="pipe-step-0">S0: 31-Ch ADC 归一化</div>
+      <span class="pipeline-arrow">→</span>
+      <div class="pipeline-step" id="pipe-step-1">S1: FC1 620 MACs</div>
+      <span class="pipeline-arrow">→</span>
+      <div class="pipeline-step" id="pipe-step-2">S2: FC2 620 MACs</div>
+      <span class="pipeline-arrow">→</span>
+      <div class="pipeline-step" id="pipe-step-3">S3: FC3 124 MACs</div>
+      <span class="pipeline-arrow">→</span>
+      <div class="pipeline-step" id="pipe-step-4">S4: ArgMax 判决</div>
+    </div>
+
+    <div class="hardware-metrics">
+      <div class="metric-pill">规模: <strong>86 节点 / 1,364 突触</strong></div>
+      <span>·</span>
+      <div class="metric-pill">架构: <strong>INT8 / INT16 定点</strong></div>
+      <span>·</span>
+      <div class="metric-pill">激活: <strong>HardSigmoid2 [-1, 1]</strong></div>
+      <span>·</span>
+      <div class="metric-pill">时延: <strong>1.40 μs @ 100MHz</strong></div>
+      <span>·</span>
+      <div class="metric-pill" style="color:var(--accent-winner);"><strong>100% RTL 位对齐</strong></div>
+    </div>
+  </footer>
+
+  <!-- 快捷键指南浮层 -->
+  <div class="modal-overlay" id="shortcuts-modal" onclick="toggleShortcutsModal()">
+    <div class="shortcuts-modal" onclick="event.stopPropagation()">
+      <div class="shortcuts-title">
+        <span>键盘快捷键指引</span>
+        <button class="btn-sm" onclick="toggleShortcutsModal()">✕ 关闭</button>
+      </div>
+      <table class="shortcuts-table">
+        <tr><td><kbd>Space</kbd></td><td>播放 / 暂停前向推理演示</td></tr>
+        <tr><td><kbd>→</kbd></td><td>单步推进一步 (逐层拆解)</td></tr>
+        <tr><td><kbd>1</kbd> ~ <kbd>4</kbd></td><td>快速切换 4 类实测颗粒样本</td></tr>
+        <tr><td><kbd>T</kbd></td><td>切换暗色曜石黑 / 亮色学术白昼主题</td></tr>
+        <tr><td><kbd>C</kbd></td><td>切换贝塞尔流线 / 精密电路直线</td></tr>
+        <tr><td><kbd>R</kbd></td><td>重新触发一轮前向推理周期</td></tr>
+        <tr><td><kbd>F</kbd></td><td>进入 / 退出全屏汇报模式</td></tr>
+        <tr><td><kbd>?</kbd></td><td>打开 / 关闭此快捷键窗口</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==========================================================================
+     真实内联硬件数据与推理动画核心逻辑
+     ========================================================================== -->
+<script>
+// 1. 真实权重与偏置 (31-20-31-4)
+const W1 = [[0, 39, 21, 16, 11, 17, 15, 17, 15, 6, 4, 5, 3, 9, 1, -1, 4, 6, 0, -5, 1, 3, 5, 0, 4, -7, 5, -5, -5, 0, -3], [0, 49, 25, 19, 14, 16, 6, 8, 10, 10, 2, 7, 2, 0, 3, -4, -6, 1, 1, 1, -3, -6, -6, 3, -7, -2, 2, 2, -7, -8, -8], [10, -64, -31, -21, -6, -3, 1, 3, -2, -1, -1, 5, 6, 5, 0, 5, 2, 4, 4, 5, 0, 10, 2, 6, 8, 7, 8, 7, 8, 8, 8], [-5, 40, 23, 17, 14, 10, 16, 16, 10, 11, 9, 0, 5, 4, 1, 6, 7, 2, 4, -4, 0, -2, -4, -1, 0, -3, 1, 1, 3, -5, -2], [3, -64, -27, -15, -15, -13, -13, -2, -8, -4, 0, 5, 3, -3, 8, -2, 5, 10, 10, 4, 2, 9, 10, 4, 5, 4, 8, 7, 9, 8, 1], [-1, -58, -22, -12, -17, -12, -17, -15, -13, -10, -9, -4, -2, -1, -1, -1, -1, 4, -2, 6, -3, -2, 3, 1, 4, 9, 5, 9, 1, 4, 3], [-5, 47, 22, 21, 12, 18, 16, 16, 12, 7, 8, 2, 1, 10, 7, -3, 5, 1, 0, 4, -2, -4, 2, -4, -4, -6, 3, 0, -4, -6, -3], [-1, 40, 14, 14, 13, 13, 20, 15, 14, 6, 8, 8, 10, 6, 4, -2, 6, 5, 3, 3, 2, 4, 1, 0, 0, -6, -1, -1, -8, -7, -7], [-7, 58, 27, 14, 15, 11, 13, 10, 6, 5, 11, 5, 1, 4, -4, 1, 4, 0, 0, -7, -3, 1, -6, -6, 1, -2, 0, -8, 0, -8, -2], [31, -5, 24, 26, 39, 37, 36, 30, 30, 18, 14, 16, 10, 13, 12, 8, 8, 12, 3, 6, 6, 1, 6, 5, 4, -1, 5, -3, 2, -1, 3], [-5, 39, 14, 16, 15, 9, 12, 13, 13, 14, 9, 7, 9, 1, 8, 2, 5, 3, 0, 4, -4, 1, 2, -3, 1, -8, -4, 1, 1, -10, 0], [-3, -28, -22, -14, -16, -17, -14, -17, -6, -11, -5, -9, -6, -11, 0, 2, 2, -4, 3, -6, 3, 0, -5, -4, -5, 3, -1, -1, 7, 3, 4], [-21, 2, -16, -20, -26, -30, -23, -27, -27, -17, -14, -17, -14, -17, -14, -11, -11, -10, -5, 0, -8, -6, -7, -3, -2, -6, 1, -6, 4, 2, -1], [-7, 64, 29, 12, 10, 15, 8, 4, 4, 4, 1, -3, -3, 1, 2, 2, -5, -3, -10, -2, -1, -3, -8, -2, -12, -8, -8, -12, -10, -14, -5], [-4, 64, 23, 19, 11, 13, 12, 1, 0, 6, 5, -6, -1, -4, 2, 0, -1, -3, -6, -1, -9, -6, -7, -11, -9, -6, -6, -10, -7, -9, -10], [7, -61, -21, -18, -16, -11, -4, -3, -5, -1, -7, 0, 1, -8, -5, 3, 2, -2, -2, 7, 4, 3, -3, 9, 0, 7, 3, 4, 7, 6, 3], [11, -57, -22, -18, -14, -6, -6, -11, 2, -3, 6, 1, 8, 5, 4, 7, 5, 3, 9, 9, 5, 11, 6, 3, 2, 10, 3, 9, 0, 9, 2], [-1, 74, 28, 15, 8, 9, 6, 14, 3, 6, 6, 2, -5, -1, -4, 1, -5, -5, 0, -3, -3, -7, -1, -5, -6, -5, -10, -5, -3, -15, -9], [7, -52, -21, -13, -14, -7, -11, -12, -5, -12, -6, -3, -6, 0, -7, -2, -2, 6, 3, -3, 4, 2, 7, 6, -1, 9, 1, 1, 5, 12, 5], [-4, -45, -14, -16, -16, -19, -17, -16, -10, -8, -2, -3, -7, -4, -2, -8, 0, -6, 3, -3, 1, 0, 3, 2, -3, 4, 5, -1, -2, 1, -1]]; // [20][31]
+const B1 = [480, 843, -859, 474, -797, -768, 344, 528, 400, 29, -38, -450, -691, 1559, 1722, -1493, -1486, 626, -616, -481]; // [20]
+const W2 = [[1, 43, -44, -3, -81, -42, 11, 13, 29, -30, 15, -16, 12, 80, 80, -37, -62, 115, -46, -15], [20, 43, -42, 29, -39, -29, 26, 36, 24, -11, 27, -17, 11, 33, 51, -57, -48, 57, -53, -41], [-11, -19, 53, -9, 83, 22, -21, -8, -43, 35, -6, -8, -36, -73, -72, 40, 67, -97, 22, 12], [-52, -49, -7, -45, 31, 72, -56, -51, -65, -23, -49, 28, 22, -26, -21, 49, 6, -6, 45, 41], [31, 40, -20, 36, -41, -47, 49, 36, 57, 5, 28, -38, -19, 23, 19, -52, -25, 37, -47, -49], [39, 48, -34, 29, -39, -51, 17, 35, 37, 14, 19, -22, -1, 41, 38, -59, -38, 72, -52, -31], [27, 38, -51, 14, -80, -40, 9, 20, 33, -13, 14, -7, 0, 54, 53, -63, -60, 108, -52, -31], [-37, -38, 22, -34, 36, 37, -28, -20, -28, 5, -23, 34, 22, -28, -25, 27, 20, -36, 38, 40], [-49, -23, -20, -38, 9, 18, -40, -42, -11, -75, -39, 50, 69, 19, 5, -3, -25, -1, 5, 51], [24, 27, -20, 24, -53, -45, 33, 8, 44, -8, 23, -23, 8, 41, 49, -48, -51, 63, -40, -23], [-13, -42, 55, -32, 51, 40, -31, -17, -25, 13, -32, 14, -7, -67, -47, 61, 53, -80, 39, 20], [-67, -13, -48, -52, -27, 30, -49, -67, -23, -80, -57, 66, 87, 24, 15, -9, -37, 11, 32, 51], [37, 36, -19, 37, -28, -37, 16, 21, 37, 22, 17, -29, -28, 42, 46, -27, -32, 47, -40, -18], [38, 34, -29, 36, -58, -34, 46, 38, 45, -14, 17, -19, 0, 58, 57, -51, -52, 67, -33, -36], [-15, -38, 54, -19, 100, 42, -18, -9, -37, 30, 4, 6, -17, -81, -62, 58, 56, -121, 28, 10], [-32, -38, 35, -33, 58, 53, -39, -17, -46, 3, -14, 20, 2, -50, -30, 37, 42, -59, 48, 28], [-29, -19, -18, -29, 12, 42, -33, -38, -8, -35, -40, 37, 28, -8, 8, 17, -18, 8, 33, 47], [-67, -51, -9, -39, 19, 64, -43, -58, -67, -22, -46, 54, 24, -22, -3, 38, 8, -38, 66, 44], [-25, -35, 11, -36, 19, 26, -30, -14, -27, -5, -23, 24, 30, -41, -35, 42, 22, -43, 27, 19], [-22, -37, 34, -26, 38, 28, -21, -15, -43, -12, -33, 27, 15, -54, -35, 39, 27, -50, 43, 40], [15, 40, -57, 8, -80, -43, 29, -7, 39, -29, 10, 8, 22, 68, 61, -69, -69, 117, -51, -6], [-41, -19, -14, -27, 15, 41, -33, -22, -33, -30, -32, 32, 51, -2, 10, 6, -18, 6, 13, 46], [-30, -26, -32, -34, -15, 29, -41, -48, -16, -40, -36, 37, 60, 11, 25, 26, -28, -6, 44, 33], [47, 33, -28, 38, -51, -33, 23, 26, 41, 14, 36, -18, 0, 58, 38, -53, -39, 68, -48, -30], [35, 22, 20, 30, -2, -28, 12, 41, 24, 59, 33, -32, -58, -4, 11, 0, -3, 8, -8, -39], [-22, -44, 13, -35, 39, 39, -20, -36, -35, -5, -27, 24, 21, -43, -29, 49, 37, -53, 24, 19], [29, 24, 21, 26, 0, -29, 28, 24, 23, 56, 30, -28, -48, -2, -2, -26, 9, 6, -20, -45], [-24, -7, -10, -14, 19, 28, -4, -27, -7, -50, -21, 31, 23, -13, -2, 18, -9, -13, 6, 32], [64, 31, 47, 44, 21, -29, 44, 47, 29, 75, 43, -36, -77, -12, -5, 3, 20, -19, -16, -53], [17, 46, -37, 9, -76, -24, 19, 8, 22, 2, 21, -22, -3, 70, 62, -47, -61, 93, -46, -13], [-32, -38, 0, -4, 52, 16, -7, -26, -37, -3, -7, 25, 11, -22, -48, 36, 24, -49, 34, 11]]; // [31][20]
+const B2 = [3473, 1035, -1514, 1675, 1117, 2503, 1511, -2933, 3860, 162, -1602, 4635, 544, 3003, -1338, -1681, 2442, 1917, 1372, 131, 1547, 1714, 2522, 2537, -826, -186, -1452, -479, -4350, 3476, 1011]; // [31]
+const W3 = [[-101, -62, 89, 15, -19, -46, -61, 19, 10, -38, 69, -2, -13, -49, 102, 52, 4, 16, 23, 33, -99, -2, -17, -45, -1, 22, -4, 6, 4, -69, 33], [21, 28, -11, -43, 40, 26, 27, -46, -65, 37, -23, -74, 47, 29, -21, -29, -69, -50, -47, -34, 18, -86, -84, 31, 77, -44, 75, -66, 83, 30, -44], [71, 3, -64, 28, -18, -9, 26, 11, 28, 12, -12, 21, -8, 15, -64, 0, 36, 27, 7, 11, 71, 33, 26, -6, -22, 6, -35, 6, -23, 32, 0], [23, 51, -22, -55, 65, 43, 32, -61, 22, 45, -33, 40, 62, 52, -14, -53, 0, -54, -45, -46, 33, 4, 24, 57, 6, -57, -4, 7, -20, 36, -25]]; // [4][31]
+const B3 = [-1457, 740, 923, 152]; // [4]
+const SCALES = {"shift1": 5, "joint1": 4064, "shift2": 6, "joint2": 8128, "shift3": 6, "joint3": 8128}; // shift1: 5, joint1: 4064, etc.
+
+// 2. 12 组实测真实样本数据
+const SAMPLES = [{"classId": 0, "className": "小米", "displayName": "小米 (Millet)", "sampleIdx": 1, "lineIdx": 0, "rawAdc": [746, 305, 161, 110, 73, 48, 37, 30, 25, 21, 17, 16, 14, 11, 10, 8, 7, 6, 5, 5, 4, 4, 2, 1, 1, 0, 0, 0, 0, 0, 0], "int8Input": [126, -24, -73, -91, -104, -112, -116, -118, -120, -121, -123, -123, -124, -125, -125, -126, -126, -126, -127, -127, -127, -127, -128, -128, -128, -128, -128, -128, -128, -128, -128], "s1": [-15733, -6924, -6634, -15901, -2936, 9800, -15013, -15562, -9535, -37932, -15866, 15686, 34991, 3991, 4833, 4311, -6061, 639, 7166, 15239], "act1": [-123, -55, -52, -125, -23, 76, -118, -122, -75, -127, -124, 122, 127, 31, 37, 33, -48, 4, 55, 119], "s2": [2122, -22659, -8127, 61502, -43958, -29473, -12795, 30645, 66211, -20969, 15915, 88149, -31518, -24981, -13, 25800, 50049, 66833, 30675, 29903, 1107, 49471, 59468, -29698, -48908, 30465, -49043, 31402, -75368, -9077, 20587], "act2": [8, -89, -32, 127, -127, -116, -50, 119, 127, -82, 62, 127, -124, -98, -1, 100, 127, 127, 119, 116, 4, 127, 127, -117, -127, 119, -127, 122, -127, -36, 80], "s3": [55454, -152803, 43291, -75987], "pred": 0, "correct": true}, {"classId": 0, "className": "小米", "displayName": "小米 (Millet)", "sampleIdx": 2, "lineIdx": 50, "rawAdc": [771, 326, 164, 105, 72, 47, 36, 31, 26, 21, 17, 15, 14, 11, 10, 9, 7, 6, 5, 5, 4, 4, 2, 0, 1, 0, 0, 0, 0, 0, 0], "int8Input": [127, -21, -74, -94, -105, -113, -117, -118, -120, -122, -123, -124, -124, -125, -125, -126, -126, -127, -127, -127, -127, -127, -128, -128, -128, -128, -128, -128, -128, -128, -128], "s1": [-15745, -6913, -6722, -15913, -3023, 9739, -15018, -15564, -9486, -38176, -15876, 15734, 35175, 4080, 4908, 4244, -6120, 761, 7118, 15231], "act1": [-124, -55, -53, -125, -24, 76, -118, -122, -75, -127, -125, 122, 127, 31, 38, 33, -48, 5, 55, 118], "s2": [2441, -22476, -8427, 61511, -43851, -29317, -12513, 30546, 66263, -20808, 15707, 88323, -31414, -24789, -349, 25636, 50093, 66851, 30596, 29761, 1403, 49513, 59567, -29566, -48936, 30361, -49074, 31391, -75514, -8834, 20466], "act2": [9, -88, -33, 127, -127, -115, -49, 119, 127, -82, 61, 127, -123, -97, -2, 100, 127, 127, 119, 116, 5, 127, 127, -116, -127, 118, -127, 122, -127, -35, 79], "s3": [54594, -152403, 43620, -75447], "pred": 0, "correct": true}, {"classId": 0, "className": "小米", "displayName": "小米 (Millet)", "sampleIdx": 3, "lineIdx": 100, "rawAdc": [653, 264, 134, 86, 58, 40, 31, 25, 21, 17, 14, 13, 11, 9, 8, 7, 6, 5, 4, 4, 3, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0], "int8Input": [127, -25, -76, -95, -106, -113, -116, -119, -120, -122, -123, -123, -124, -125, -125, -126, -126, -127, -127, -127, -127, -127, -128, -128, -128, -128, -128, -128, -128, -128, -128], "s1": [-15967, -7187, -6374, -16150, -2689, 10038, -15281, -15766, -9793, -38247, -16085, 15914, 35232, 3745, 4581, 4563, -5810, 380, 7393, 15467], "act1": [-125, -57, -50, -127, -22, 78, -120, -124, -77, -127, -126, 124, 127, 29, 35, 35, -46, 2, 57, 120], "s2": [764, -23923, -6922, 62800, -45218, -30805, -14192, 31671, 66759, -22171, 17282, 88797, -32604, -26383, 1377, 27072, 50670, 68206, 31635, 31049, -301, 50038, 60040, -31033, -49475, 31583, -49606, 31845, -75954, -10374, 21460], "act2": [2, -94, -28, 127, -127, -121, -56, 123, 127, -87, 67, 127, -127, -104, 5, 105, 127, 127, 123, 121, -2, 127, 127, -122, -127, 123, -127, 124, -127, -41, 83], "s3": [60758, -155686, 41520, -79718], "pred": 0, "correct": true}, {"classId": 1, "className": "玻璃珠", "displayName": "珍珠粉/玻璃珠 (Pearl Powder/Glass Beads)", "sampleIdx": 1, "lineIdx": 0, "rawAdc": [29, 129, 134, 149, 146, 141, 135, 127, 110, 88, 70, 67, 66, 63, 54, 46, 41, 37, 31, 29, 26, 24, 20, 18, 15, 13, 12, 10, 8, 0, 5], "int8Input": [-79, 92, 101, 126, 121, 113, 103, 89, 60, 22, -9, -14, -16, -21, -36, -50, -58, -65, -75, -79, -84, -87, -94, -98, -103, -106, -108, -111, -115, -128, -120], "s1": [15456, 20323, -23491, 15933, -26199, -21354, 19296, 16126, 20261, 14116, 14741, -14041, -9674, 27250, 27241, -21011, -24886, 24930, -20217, -15523], "act1": [120, 127, -127, 124, -127, -127, 127, 125, 127, 110, 115, -110, -76, 127, 127, -127, -127, 127, -127, -122], "s2": [91039, 83216, -77362, -87652, 87212, 91959, 95126, -72577, -46128, 78789, -90010, -50629, 75775, 95302, -91712, -86731, -45006, -91121, -63741, -78736, 91425, -43770, -42269, 92610, 47128, -75850, 45574, -37893, 46928, 91082, -58739], "act2": [127, 127, -127, -127, 127, 127, 127, -127, -127, 127, -127, -127, 127, 127, -127, -127, -127, -127, -127, -127, 127, -127, -127, 127, 127, -127, 127, -127, 127, 127, -127], "s3": [-137982, 179175, 2066, 107975], "pred": 1, "correct": true}, {"classId": 1, "className": "玻璃珠", "displayName": "珍珠粉/玻璃珠 (Pearl Powder/Glass Beads)", "sampleIdx": 2, "lineIdx": 50, "rawAdc": [255, 325, 351, 365, 357, 322, 281, 238, 175, 119, 82, 80, 88, 84, 65, 50, 52, 46, 36, 36, 29, 27, 23, 20, 17, 14, 13, 11, 9, 0, 4], "int8Input": [50, 99, 117, 126, 121, 96, 68, 38, -6, -45, -71, -73, -67, -70, -83, -94, -92, -96, -103, -103, -108, -110, -112, -115, -117, -119, -119, -121, -122, -128, -126], "s1": [11550, 18809, -25344, 11501, -27415, -18587, 15059, 11141, 17628, 6652, 9464, -10418, -988, 27467, 28109, -19729, -26412, 25165, -17181, -12321], "act1": [90, 127, -127, 89, -127, -127, 117, 87, 127, 51, 73, -82, -8, 127, 127, -127, -127, 127, -127, -97], "s2": [91643, 78735, -80388, -75299, 78112, 85191, 92184, -65118, -27902, 75426, -86551, -27610, 67234, 89678, -92751, -81773, -33487, -77638, -56451, -71516, 93532, -31801, -28132, 85060, 32668, -68393, 32865, -28553, 27442, 87618, -54387], "act2": [127, 127, -127, -127, 127, 127, 127, -127, -109, 127, -127, -108, 127, 127, -127, -127, -127, -127, -127, -127, 127, -125, -110, 127, 127, -127, 127, -112, 107, 127, -127], "s3": [-138123, 172349, 4027, 110052], "pred": 1, "correct": true}, {"classId": 1, "className": "玻璃珠", "displayName": "珍珠粉/玻璃珠 (Pearl Powder/Glass Beads)", "sampleIdx": 3, "lineIdx": 100, "rawAdc": [154, 261, 243, 258, 250, 232, 214, 188, 156, 125, 95, 88, 90, 84, 70, 57, 54, 48, 40, 38, 32, 30, 26, 22, 20, 16, 15, 13, 11, 0, 7], "int8Input": [22, 126, 109, 124, 116, 98, 81, 55, 24, -6, -36, -43, -41, -46, -60, -73, -76, -82, -89, -91, -97, -99, -103, -107, -109, -113, -114, -116, -118, -128, -122], "s1": [14271, 20784, -25952, 14430, -28403, -21439, 18024, 14426, 20197, 10487, 12858, -12829, -5356, 28820, 29298, -21766, -26750, 27054, -19824, -15011], "act1": [111, 127, -127, 112, -127, -127, 127, 112, 127, 81, 100, -101, -42, 127, 127, -127, -127, 127, -127, -118], "s2": [91746, 82191, -79224, -83415, 84284, 89758, 94435, -70162, -38925, 78041, -89217, -41600, 72547, 93870, -92646, -85343, -40815, -86490, -61100, -76275, 92772, -39235, -36762, 90165, 41298, -73208, 40551, -34204, 39239, 89992, -57230], "act2": [127, 127, -127, -127, 127, 127, 127, -127, -127, 127, -127, -127, 127, 127, -127, -127, -127, -127, -127, -127, 127, -127, -127, 127, 127, -127, 127, -127, 127, 127, -127], "s3": [-137982, 179175, 2066, 107975], "pred": 1, "correct": true}, {"classId": 2, "className": "白砂糖", "displayName": "白砂糖 (Granulated Sugar)", "sampleIdx": 1, "lineIdx": 0, "rawAdc": [607, 297, 159, 100, 63, 47, 36, 31, 25, 21, 17, 15, 13, 10, 10, 8, 7, 6, 6, 6, 6, 6, 5, 4, 5, 4, 6, 6, 5, 0, 7], "int8Input": [127, -4, -62, -86, -102, -109, -113, -115, -118, -120, -121, -122, -123, -124, -124, -125, -126, -126, -126, -126, -126, -126, -126, -127, -126, -127, -126, -126, -126, -128, -126], "s1": [-14418, -5468, -8231, -14557, -4595, 8167, -13517, -14319, -7884, -37001, -14648, 14575, 34220, 5621, 6427, 2713, -7490, 2530, 5724, 13866], "act1": [-113, -43, -65, -114, -36, 63, -106, -112, -62, -127, -115, 113, 127, 43, 50, 21, -59, 19, 44, 108], "s2": [11226, -14654, -16349, 53656, -36052, -21067, -3480, 24194, 63065, -13241, 7171, 84922, -24799, -15998, -9504, 17604, 46413, 58666, 24763, 22621, 10546, 46042, 56395, -21270, -45618, 23479, -45710, 28654, -72284, -569, 14956], "act2": [43, -58, -64, 127, -127, -83, -14, 94, 127, -52, 28, 127, -97, -63, -38, 68, 127, 127, 96, 88, 41, 127, 127, -84, -127, 91, -127, 111, -127, -3, 58], "s3": [21684, -134349, 54508, -51939], "pred": 2, "correct": true}, {"classId": 2, "className": "白砂糖", "displayName": "白砂糖 (Granulated Sugar)", "sampleIdx": 2, "lineIdx": 50, "rawAdc": [797, 533, 252, 158, 109, 77, 59, 48, 41, 33, 27, 25, 23, 19, 18, 15, 13, 12, 11, 11, 11, 11, 11, 10, 11, 10, 13, 13, 13, 0, 16], "int8Input": [127, 42, -48, -78, -94, -104, -110, -113, -115, -118, -120, -120, -121, -122, -123, -124, -124, -125, -125, -125, -125, -125, -125, -125, -125, -125, -124, -124, -124, -128, -123], "s1": [-11866, -2476, -11670, -11925, -8154, 4801, -10549, -11823, -4480, -35705, -12192, 12493, 33114, 9125, 9880, -692, -10590, 6499, 2731, 11088], "act1": [-93, -20, -92, -94, -64, 37, -83, -93, -35, -127, -96, 97, 127, 71, 77, -6, -83, 50, 21, 86], "s2": [30387, 1890, -33748, 37762, -19925, -3710, 16037, 11037, 57140, 2808, -11072, 79046, -10991, 2593, -29479, 669, 39245, 42203, 12600, 7535, 30474, 39308, 50513, -3778, -39179, 9073, -39120, 23121, -66520, 17288, 3300], "act2": [118, 7, -127, 127, -78, -15, 62, 43, 127, 10, -44, 127, -43, 10, -116, 2, 127, 127, 49, 29, 119, 127, 127, -15, -127, 35, -127, 90, -127, 67, 12], "s3": [-49744, -94246, 77168, 1090], "pred": 2, "correct": true}, {"classId": 2, "className": "白砂糖", "displayName": "白砂糖 (Granulated Sugar)", "sampleIdx": 3, "lineIdx": 100, "rawAdc": [704, 421, 194, 125, 93, 62, 43, 38, 30, 25, 21, 18, 16, 14, 13, 11, 10, 9, 8, 8, 7, 8, 7, 6, 7, 6, 8, 8, 7, 0, 8], "int8Input": [126, 24, -58, -83, -95, -106, -113, -115, -118, -119, -121, -122, -123, -123, -124, -125, -125, -125, -126, -126, -126, -126, -126, -126, -126, -126, -126, -126, -126, -128, -126], "s1": [-13048, -3787, -10248, -13141, -6671, 6267, -11894, -12953, -5960, -36559, -13303, 13476, 33837, 7674, 8469, 722, -9332, 4828, 4026, 12325], "act1": [-102, -30, -81, -103, -53, 48, -93, -102, -47, -127, -104, 105, 127, 59, 66, 5, -73, 37, 31, 96], "s2": [22343, -5160, -26479, 44676, -26890, -11128, 7815, 16709, 59859, -4008, -3358, 81870, -16920, -5339, -21111, 7891, 42448, 49426, 17819, 13990, 22149, 42320, 53216, -11244, -42068, 15242, -42057, 25558, -69227, 9769, 8271], "act2": [87, -21, -104, 127, -106, -44, 30, 65, 127, -16, -14, 127, -67, -21, -83, 30, 127, 127, 69, 54, 86, 127, 127, -44, -127, 59, -127, 99, -127, 38, 32], "s3": [-19783, -111551, 68045, -21837], "pred": 2, "correct": true}, {"classId": 3, "className": "细盐", "displayName": "细盐 (Fine Salt)", "sampleIdx": 1, "lineIdx": 0, "rawAdc": [243, 347, 255, 191, 150, 115, 92, 77, 67, 55, 45, 42, 38, 34, 30, 26, 22, 20, 17, 16, 14, 13, 11, 10, 9, 7, 8, 7, 7, 0, 6], "int8Input": [50, 126, 59, 12, -18, -44, -61, -72, -79, -88, -95, -98, -101, -104, -106, -109, -112, -114, -116, -117, -118, -119, -120, -121, -122, -123, -123, -123, -123, -128, -124], "s1": [-341, 9427, -22928, 184, -20353, -7969, 2657, -653, 8633, -21934, -1075, 1913, 21738, 21335, 21758, -12834, -21366, 19201, -8972, -280], "act1": [-3, 73, -127, 1, -127, -63, 20, -6, 67, -127, -9, 14, 127, 127, 127, -101, -127, 127, -71, -3], "s2": [82034, 54128, -78744, -23756, 37383, 52375, 72146, -34189, 26498, 52919, -65251, 41530, 33992, 60984, -83512, -53239, 6241, -22608, -28052, -40739, 84885, 8394, 18277, 52284, -10848, -38360, -9222, 915, -32818, 67703, -33799], "act2": [127, 127, -127, -93, 127, 127, 127, -127, 103, 127, -127, 127, 127, 127, -127, -127, 24, -89, -110, -127, 127, 32, 71, 127, -43, -127, -37, 3, -127, 127, -127], "s3": [-137171, 45491, 47870, 129522], "pred": 3, "correct": true}, {"classId": 3, "className": "细盐", "displayName": "细盐 (Fine Salt)", "sampleIdx": 2, "lineIdx": 50, "rawAdc": [319, 422, 263, 186, 149, 109, 85, 70, 57, 48, 40, 36, 33, 28, 25, 22, 19, 17, 15, 14, 12, 11, 10, 8, 8, 6, 8, 6, 6, 0, 5], "int8Input": [64, 126, 30, -16, -38, -63, -77, -86, -94, -99, -104, -107, -109, -112, -113, -115, -117, -118, -119, -120, -121, -122, -122, -124, -124, -125, -124, -125, -125, -128, -125], "s1": [-2915, 7108, -21476, -2473, -18481, -5571, -154, -3116, 6253, -26812, -3506, 4484, 25782, 19499, 20009, -10867, -19867, 17377, -6845, 2137], "act1": [-23, 55, -127, -20, -127, -44, -2, -25, 48, -127, -28, 35, 127, 127, 127, -85, -127, 127, -54, 16], "s2": [77185, 46620, -74956, -12238, 27657, 44171, 65769, -26831, 33716, 46075, -58402, 51392, 27284, 52838, -78417, -45534, 13433, -10420, -21800, -33682, 79527, 15144, 25980, 44250, -16781, -31293, -15609, 5129, -41347, 62260, -28715], "act2": [127, 127, -127, -48, 108, 127, 127, -105, 127, 127, -127, 127, 106, 127, -127, -127, 52, -41, -86, -127, 127, 59, 101, 127, -66, -123, -61, 20, -127, 127, -113], "s3": [-133565, 23450, 56169, 120351], "pred": 3, "correct": true}, {"classId": 3, "className": "细盐", "displayName": "细盐 (Fine Salt)", "sampleIdx": 3, "lineIdx": 100, "rawAdc": [286, 347, 220, 157, 124, 93, 75, 64, 55, 45, 37, 33, 30, 25, 23, 20, 17, 16, 13, 13, 11, 10, 9, 7, 7, 5, 6, 4, 3, 0, 2], "int8Input": [82, 126, 33, -13, -37, -60, -73, -81, -88, -95, -101, -104, -106, -110, -112, -114, -116, -117, -119, -119, -120, -121, -122, -123, -123, -125, -124, -126, -126, -128, -127], "s1": [-2400, 7502, -21415, -2092, -18688, -6061, 258, -2600, 6514, -25205, -3125, 3926, 24493, 19638, 20175, -11002, -19809, 17655, -7096, 1604], "act1": [-19, 58, -127, -17, -127, -48, 2, -21, 50, -127, -25, 30, 127, 127, 127, -86, -127, 127, -56, 12], "s2": [77945, 47821, -75484, -14164, 29267, 45498, 66743, -28093, 32337, 47160, -59463, 49539, 28396, 54169, -79170, -46790, 12129, -12506, -22808, -34820, 80254, 13920, 24637, 45528, -15682, -32442, -14497, 4344, -39778, 63105, -29533], "act2": [127, 127, -127, -56, 114, 127, 127, -110, 126, 127, -127, 127, 110, 127, -127, -127, 47, -49, -90, -127, 127, 54, 96, 127, -62, -127, -57, 16, -127, 127, -116], "s3": [-134332, 27480, 54727, 122467], "pred": 3, "correct": true}];
+
+// 全局运行时状态
+const STATE = {
+  theme: 'dark',
+  currentClass: 0,
+  currentSubSample: 1,
+  noiseLevel: 0,          // 0 ~ 30%
+  propagationMode: 'wave', // 'wave' | 'pipeline'
+  density: 'std',         // 'lite' | 'std' | 'full'
+  speed: 1.0,
+  paused: false,
+  lineStyle: 'bezier',    // 'bezier' | 'straight'
+  lineContrast: 1.0,
+  activeSample: null,
+  activeInference: null,  // 实时推理计算结果
+  waveProgress: 0.0,      // 0.0 ~ 1.0
+  hoveredNode: null,      // { layer: 0..3, index: 0..N-1 }
+  pipelineOffset: 0.0,
+  particles: []
+};
+
+// 拓扑层级定义
+const LAYERS = [
+  { name: 'Input', count: 31, label: 'L0 输入' },
+  { name: 'FC1',   count: 20, label: 'L1 隐藏层 1' },
+  { name: 'FC2',   count: 31, label: 'L2 隐藏层 2' },
+  { name: 'FC3',   count: 4,  label: 'L3 输出层' }
+];
+
+// Canvas 上下文与尺寸
+let bgCanvas, bgCtx, fgCanvas, fgCtx;
+let canvasWidth = 0, canvasHeight = 0;
+let nodePositions = []; // [layerIndex][nodeIndex] = { x, y, r }
+let bgCacheDirty = true;
+
+// 初始化
+window.addEventListener('DOMContentLoaded', () => {
+  bgCanvas = document.getElementById('bg-canvas');
+  bgCtx = bgCanvas.getContext('2d');
+  fgCanvas = document.getElementById('fg-canvas');
+  fgCtx = fgCanvas.getContext('2d');
+
+  initUI();
+  handleResize();
+  window.addEventListener('resize', handleResize);
+  setupEvents();
+
+  // 默认加载第 0 类第 1 个样本
+  loadSample(0, 1);
+  initParticles();
+
+  requestAnimationFrame(renderLoop);
+});
+
+// 窗口尺寸自适应与 HiDPI 支持
+function handleResize() {
+  const container = document.getElementById('canvas-container');
+  const rect = container.getBoundingClientRect();
+  canvasWidth = rect.width;
+  canvasHeight = rect.height;
+
+  const dpr = window.devicePixelRatio || 1;
+  bgCanvas.width = canvasWidth * dpr;
+  bgCanvas.height = canvasHeight * dpr;
+  bgCtx.scale(dpr, dpr);
+
+  fgCanvas.width = canvasWidth * dpr;
+  fgCanvas.height = canvasHeight * dpr;
+  fgCtx.scale(dpr, dpr);
+
+  computeNodeLayout();
+  bgCacheDirty = true;
+}
+
+// 计算 4 层 86 个节点的精确物理坐标
+function computeNodeLayout() {
+  nodePositions = [];
+  const layerXFracs = [0.10, 0.38, 0.65, 0.90]; // 四层水平分布
+
+  const topMargin = 55;
+  const bottomMargin = 40;
+  const availableH = canvasHeight - topMargin - bottomMargin;
+
+  for (let l = 0; l < LAYERS.length; l++) {
+    const count = LAYERS[l].count;
+    const x = canvasWidth * layerXFracs[l];
+    const layerNodes = [];
+
+    // 计算垂直间距
+    let dy = availableH / (count - 1);
+    let radius = 6;
+    if (count === 31) {
+      radius = Math.max(4.5, Math.min(6.5, dy * 0.32));
+    } else if (count === 20) {
+      radius = Math.max(5.5, Math.min(8.0, dy * 0.28));
+    } else if (count === 4) {
+      dy = Math.min(100, availableH / (count + 1));
+      radius = 11;
+    }
+
+    for (let i = 0; i < count; i++) {
+      let y;
+      if (count === 4) {
+        // 输出层居中
+        const startY = topMargin + (availableH - dy * (count - 1)) / 2;
+        y = startY + i * dy;
+      } else {
+        y = topMargin + i * dy;
+      }
+      layerNodes.push({ x, y, r: radius });
+    }
+    nodePositions.push(layerNodes);
+  }
+}
+
+// 初始化左侧 31 环光能列表
+function initUI() {
+  const container = document.getElementById('rings-list');
+  container.innerHTML = '';
+  for (let i = 0; i < 31; i++) {
+    const row = document.createElement('div');
+    row.className = 'ring-row';
+    row.id = `ring-row-${i}`;
+    row.innerHTML = `
+      <span class="ring-idx">R${i.toString().padStart(2, '0')}</span>
+      <div class="ring-bar-bg">
+        <div class="ring-bar-fill" id="ring-fill-${i}" style="width: 0%"></div>
+      </div>
+      <span class="ring-val" id="ring-val-${i}">0</span>
+    `;
+    row.addEventListener('mouseenter', () => {
+      STATE.hoveredNode = { layer: 0, index: i };
+      updateInspector({ layer: 0, index: i });
+    });
+    row.addEventListener('mouseleave', () => {
+      STATE.hoveredNode = null;
+      hideInspector();
+    });
+    container.appendChild(row);
+  }
+}
+
+// ==========================================================================
+// JS 硬件级定点前向推理引擎 (完全 100% 位对齐 FPGA RTL)
+// ==========================================================================
+function computeForward(inputInt8) {
+  // Layer 1: 31 -> 20 (SHIFT_W1 = 5, SCALE_JOINT1 = 4064)
+  const s1 = new Int32Array(20);
+  const act1 = new Int32Array(20);
+  for (let o = 0; o < 20; o++) {
+    let sum = B1[o];
+    const row = W1[o];
+    for (let i = 0; i < 31; i++) {
+      sum += row[i] * inputInt8[i];
+    }
+    s1[o] = sum;
+    // HardSigmoid2 (THRESH = 4, joint = 4064 -> 4*joint = 16256)
+    if (sum >= 16256) act1[o] = 127;
+    else if (sum <= -16256) act1[o] = -127;
+    else act1[o] = sum >> 7; // 2 + shift1 = 7
+  }
+
+  // Layer 2: 20 -> 31 (SHIFT_W2 = 6, SCALE_JOINT2 = 8128)
+  const s2 = new Int32Array(31);
+  const act2 = new Int32Array(31);
+  for (let o = 0; o < 31; o++) {
+    let sum = B2[o];
+    const row = W2[o];
+    for (let i = 0; i < 20; i++) {
+      sum += row[i] * act1[i];
+    }
+    s2[o] = sum;
+    // HardSigmoid2 (THRESH = 4, joint = 8128 -> 4*joint = 32512)
+    if (sum >= 32512) act2[o] = 127;
+    else if (sum <= -32512) act2[o] = -127;
+    else act2[o] = sum >> 8; // 2 + shift2 = 8
+  }
+
+  // Layer 3: 31 -> 4
+  const s3 = new Int32Array(4);
+  let pred = 0;
+  let maxVal = -2147483648;
+  for (let o = 0; o < 4; o++) {
+    let sum = B3[o];
+    const row = W3[o];
+    for (let i = 0; i < 31; i++) {
+      sum += row[i] * act2[i];
+    }
+    s3[o] = sum;
+    if (sum > maxVal) {
+      maxVal = sum;
+      pred = o;
+    }
+  }
+
+  return { s1, act1, s2, act2, s3, pred };
+}
+
+// 加载指定样本数据并运行前向定点推理
+function loadSample(classId, subSampleIdx) {
+  STATE.currentClass = classId;
+  STATE.currentSubSample = subSampleIdx;
+
+  const found = SAMPLES.find(s => s.classId === classId && s.sampleIdx === subSampleIdx);
+  if (!found) return;
+  STATE.activeSample = found;
+
+  recomputeInference();
+
+  // 重置波次进度
+  STATE.waveProgress = 0.0;
+  bgCacheDirty = true;
+}
+
+// 重新计算推理 (包含噪声扰动支持)
+function recomputeInference() {
+  if (!STATE.activeSample) return;
+
+  const baseInput = STATE.activeSample.int8Input;
+  const effectiveInput = new Int32Array(31);
+
+  // 注入伪随机高斯扰动
+  const noiseScale = STATE.noiseLevel * 0.7; // 最大 ±21 INT8 抖动
+  for (let i = 0; i < 31; i++) {
+    let v = baseInput[i];
+    if (noiseScale > 0) {
+      const noise = (Math.random() - 0.5) * 2 * noiseScale;
+      v = Math.round(v + noise);
+      v = Math.max(-128, Math.min(127, v));
+    }
+    effectiveInput[i] = v;
+  }
+
+  const inf = computeForward(effectiveInput);
+  STATE.activeInference = {
+    effectiveInput: effectiveInput,
+    s1: inf.s1,
+    act1: inf.act1,
+    s2: inf.s2,
+    act2: inf.act2,
+    s3: inf.s3,
+    pred: inf.pred
+  };
+
+  // 更新左侧 31 环数值与进度条
+  for (let i = 0; i < 31; i++) {
+    const val = effectiveInput[i];
+    const fill = document.getElementById(`ring-fill-${i}`);
+    const valSpan = document.getElementById(`ring-val-${i}`);
+    const percent = Math.min(100, Math.max(0, ((val + 128) / 255) * 100));
+    fill.style.width = `${percent.toFixed(1)}%`;
+    valSpan.textContent = val >= 0 ? `+${val}` : `${val}`;
+  }
+
+  // 更新右侧 4 个类别卡片
+  updateDecisionCards(inf.s3, inf.pred);
+}
+
+// 软计算 4 分类的置信度与 Logits
+function updateDecisionCards(logits, winnerIdx) {
+  // 避免极值数值溢出，采用平移 Softmax
+  const maxLogit = Math.max(...logits);
+  const exps = [];
+  for (let i = 0; i < 4; i++) {
+    exps.push(Math.exp((logits[i] - maxLogit) / 35000.0));
+  }
+  const sumExp = exps.reduce((a, b) => a + b, 0);
+  const probs = exps.map(v => (v / sumExp) * 100);
+
+  for (let i = 0; i < 4; i++) {
+    const card = document.getElementById(`card-class-${i}`);
+    const bar = document.getElementById(`prob-bar-${i}`);
+    const probVal = document.getElementById(`prob-val-${i}`);
+    const logitVal = document.getElementById(`logit-val-${i}`);
+
+    const p = probs[i];
+    bar.style.width = `${p.toFixed(1)}%`;
+    probVal.textContent = `${p.toFixed(1)}%`;
+    logitVal.textContent = (logits[i] >= 0 ? '+' : '') + logits[i].toLocaleString();
+
+    if (i === winnerIdx) {
+      card.classList.add('winner');
+      card.querySelector('.card-winner-badge').textContent = `MATCH ${p.toFixed(1)}%`;
+    } else {
+      card.classList.remove('winner');
+    }
+  }
+}
+
+// 切换类别
+function switchClass(classId) {
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`btn-sample-${i}`);
+    btn.classList.toggle('active', i === classId);
+  }
+  loadSample(classId, STATE.currentSubSample);
+}
+
+// 切换子样本
+function switchSubSample(subIdx) {
+  for (let i = 1; i <= 3; i++) {
+    const btn = document.getElementById(`btn-sub-${i}`);
+    btn.classList.toggle('active', i === subIdx);
+  }
+  loadSample(STATE.currentClass, subIdx);
+}
+
+// 噪声扰动调节
+function onNoiseChange(val) {
+  STATE.noiseLevel = parseInt(val);
+  document.getElementById('noise-val-display').textContent = `${val}%`;
+  recomputeInference();
+}
+
+// 切换模式
+function setMode(mode) {
+  STATE.propagationMode = mode;
+  document.getElementById('btn-mode-wave').classList.toggle('active', mode === 'wave');
+  document.getElementById('btn-mode-pipe').classList.toggle('active', mode === 'pipeline');
+  STATE.waveProgress = 0.0;
+}
+
+// 切换密度
+function setDensity(d) {
+  STATE.density = d;
+  document.getElementById('btn-density-lite').classList.toggle('active', d === 'lite');
+  document.getElementById('btn-density-std').classList.toggle('active', d === 'std');
+  document.getElementById('btn-density-full').classList.toggle('active', d === 'full');
+  initParticles();
+}
+
+// 速度调节
+function onSpeedChange(val) {
+  STATE.speed = parseFloat(val);
+  document.getElementById('speed-val-display').textContent = `${STATE.speed.toFixed(1)}×`;
+  document.querySelectorAll('[id^="btn-spd-"]').forEach(btn => btn.classList.remove('active'));
+}
+
+function setSpeedPreset(val) {
+  STATE.speed = val;
+  document.getElementById('speed-slider').value = val;
+  document.getElementById('speed-val-display').textContent = `${val.toFixed(1)}×`;
+}
+
+// 对比度调节
+function onContrastChange(val) {
+  STATE.lineContrast = parseFloat(val);
+  bgCacheDirty = true;
+}
+
+// 播放/暂停
+function togglePlayPause() {
+  STATE.paused = !STATE.paused;
+  const btn = document.getElementById('btn-play-pause');
+  btn.innerHTML = STATE.paused ? '▶ 播放' : '⏸ 暂停';
+}
+
+// 单步推进
+function stepForward() {
+  STATE.paused = true;
+  document.getElementById('btn-play-pause').innerHTML = '▶ 播放';
+  STATE.waveProgress = (STATE.waveProgress + 0.25) % 1.0;
+}
+
+// 重新触发
+function restartInference() {
+  STATE.waveProgress = 0.0;
+  STATE.pipelineOffset = 0.0;
+}
+
+// 切换连接线风格
+function toggleLineStyle() {
+  STATE.lineStyle = (STATE.lineStyle === 'bezier') ? 'straight' : 'bezier';
+  const btn = document.getElementById('btn-curve-toggle');
+  btn.innerHTML = (STATE.lineStyle === 'bezier') ? '〰 曲线' : '📏 直线';
+  bgCacheDirty = true;
+}
+
+// 切换主题 (暗色曜石黑 / 亮色学术白昼)
+function toggleTheme() {
+  STATE.theme = (STATE.theme === 'dark') ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', STATE.theme);
+  bgCacheDirty = true;
+}
+
+// 快捷键帮助弹窗
+function toggleShortcutsModal() {
+  const modal = document.getElementById('shortcuts-modal');
+  modal.classList.toggle('show');
+}
+
+// 全屏切换
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+// 初始化运算信号颗粒
+function initParticles() {
+  STATE.particles = [];
+  const layerPairs = [
+    { l: 0, inN: 31, outN: 20, weights: W1 },
+    { l: 1, inN: 20, outN: 31, weights: W2 },
+    { l: 2, inN: 31, outN: 4,  weights: W3 }
+  ];
+
+  for (const pair of layerPairs) {
+    const { l, inN, outN, weights } = pair;
+    for (let j = 0; j < outN; j++) {
+      for (let i = 0; i < inN; i++) {
+        const w = weights[j][i];
+        const absW = Math.abs(w);
+
+        // 根据密度模式过滤颗粒生成
+        let include = false;
+        if (STATE.density === 'full') {
+          include = true; // 全量 1,364 条连接全部生成颗粒
+        } else if (STATE.density === 'std') {
+          include = (absW >= 15) || ((i + j) % 3 === 0);
+        } else if (STATE.density === 'lite') {
+          include = (absW >= 35);
+        }
+
+        if (include) {
+          STATE.particles.push({
+            layer: l,
+            fromIdx: i,
+            toIdx: j,
+            weight: w,
+            absWeight: absW,
+            speed: 0.8 + (absW / 128.0) * 0.6,
+            progress: Math.random() // 初始随机相位
+          });
+        }
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// 离屏 Canvas 缓存底层 1,364 条突触连接 (确保稳定 60 FPS)
+// ==========================================================================
+function renderBgCache() {
+  if (!nodePositions || nodePositions.length === 0) return;
+  bgCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  // 1. 绘制极细微的瑞士工程点阵背景网格
+  const gridStep = 24;
+  bgCtx.fillStyle = (STATE.theme === 'dark') ? 'rgba(255, 255, 255, 0.025)' : 'rgba(15, 23, 42, 0.035)';
+  for (let x = gridStep; x < canvasWidth; x += gridStep) {
+    for (let y = gridStep; y < canvasHeight; y += gridStep) {
+      bgCtx.fillRect(x - 0.5, y - 0.5, 1, 1);
+    }
+  }
+
+  // 2. 绘制全部 1,364 条突触连接
+  const layerPairs = [
+    { l: 0, inN: 31, outN: 20, weights: W1 },
+    { l: 1, inN: 20, outN: 31, weights: W2 },
+    { l: 2, inN: 31, outN: 4,  weights: W3 }
+  ];
+
+  for (const pair of layerPairs) {
+    const { l, inN, outN, weights } = pair;
+    const fromNodes = nodePositions[l];
+    const toNodes = nodePositions[l + 1];
+
+    for (let j = 0; j < outN; j++) {
+      const pTo = toNodes[j];
+      for (let i = 0; i < inN; i++) {
+        const pFrom = fromNodes[i];
+        const w = weights[j][i];
+        const absW = Math.abs(w);
+
+        // 透明度与颜色映射：正权冷青蓝，负权琥珀暖金
+        let alpha = (0.04 + (absW / 128.0) * 0.35) * STATE.lineContrast;
+        alpha = Math.min(0.65, Math.max(0.02, alpha));
+
+        if (w >= 0) {
+          bgCtx.strokeStyle = (STATE.theme === 'dark')
+            ? `rgba(56, 189, 248, ${alpha})`
+            : `rgba(2, 132, 199, ${alpha * 1.3})`;
+        } else {
+          bgCtx.strokeStyle = (STATE.theme === 'dark')
+            ? `rgba(245, 158, 11, ${alpha})`
+            : `rgba(217, 119, 6, ${alpha * 1.3})`;
+        }
+
+        bgCtx.lineWidth = 0.5 + (absW / 128.0) * 0.8;
+        bgCtx.beginPath();
+        bgCtx.moveTo(pFrom.x, pFrom.y);
+
+        if (STATE.lineStyle === 'bezier') {
+          const dx = pTo.x - pFrom.x;
+          bgCtx.bezierCurveTo(
+            pFrom.x + dx * 0.45, pFrom.y,
+            pTo.x - dx * 0.45, pTo.y,
+            pTo.x, pTo.y
+          );
+        } else {
+          bgCtx.lineTo(pTo.x, pTo.y);
+        }
+        bgCtx.stroke();
+      }
+    }
+  }
+
+  bgCacheDirty = false;
+}
+
+// ==========================================================================
+// 主动画渲染循环 (60 FPS)
+// ==========================================================================
+let lastTimestamp = 0;
+
+function renderLoop(timestamp) {
+  if (!lastTimestamp) lastTimestamp = timestamp;
+  const dt = Math.min(0.05, (timestamp - lastTimestamp) / 1000.0);
+  lastTimestamp = timestamp;
+
+  if (bgCacheDirty) {
+    renderBgCache();
+  }
+
+  // 1. 清空前景 Canvas
+  fgCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  // 2. 更新时序与流水线推进
+  if (!STATE.paused) {
+    const stepDelta = dt * STATE.speed * 0.45;
+    STATE.waveProgress = (STATE.waveProgress + stepDelta) % 1.0;
+    STATE.pipelineOffset = (STATE.pipelineOffset + dt * STATE.speed * 0.8) % 1.0;
+  }
+
+  // 3. 更新底部流水线指示高亮
+  updatePipelineStatus();
+
+  // 4. 绘制运算信号颗粒
+  renderParticles(dt);
+
+  // 5. 绘制神经元节点 (激活值填充 + 脉冲环 + 悬停探针)
+  renderNeurons();
+
+  // 6. 绘制高亮的突触连线 (当鼠标悬停在某个节点上时)
+  renderHoverHighlights();
+
+  requestAnimationFrame(renderLoop);
+}
+
+// 更新底部流水线阶段高亮
+function updatePipelineStatus() {
+  const wp = STATE.waveProgress;
+  let activeStep = 0;
+  if (STATE.propagationMode === 'wave') {
+    if (wp < 0.20) activeStep = 0;
+    else if (wp < 0.45) activeStep = 1;
+    else if (wp < 0.70) activeStep = 2;
+    else if (wp < 0.90) activeStep = 3;
+    else activeStep = 4;
+  } else {
+    // 流水线模式全部常亮运转
+    activeStep = Math.floor((STATE.pipelineOffset * 5)) % 5;
+  }
+
+  for (let s = 0; s < 5; s++) {
+    const el = document.getElementById(`pipe-step-${s}`);
+    if (el) {
+      el.classList.toggle('active', (STATE.propagationMode === 'pipeline') || (s === activeStep));
+    }
+  }
+}
+
+// 绘制动态信号颗粒
+function renderParticles(dt) {
+  const wp = STATE.waveProgress;
+  const isWave = (STATE.propagationMode === 'wave');
+
+  for (const p of STATE.particles) {
+    const { layer, fromIdx, toIdx, weight, speed } = p;
+    const pFrom = nodePositions[layer][fromIdx];
+    const pTo = nodePositions[layer + 1][toIdx];
+
+    let t = 0;
+    let alpha = 0;
+
+    if (isWave) {
+      // 波次推进模式：严格分层按时推进
+      let stageStart = 0;
+      let stageEnd = 0;
+      if (layer === 0) { stageStart = 0.15; stageEnd = 0.42; }
+      else if (layer === 1) { stageStart = 0.42; stageEnd = 0.68; }
+      else if (layer === 2) { stageStart = 0.68; stageEnd = 0.92; }
+
+      if (wp >= stageStart && wp < stageEnd) {
+        t = (wp - stageStart) / (stageEnd - stageStart);
+        // 淡入淡出
+        alpha = Math.sin(t * Math.PI);
+      } else {
+        continue; // 不在当前波次阶段不渲染
+      }
+    } else {
+      // 流水线模式：全天候连续吞吐
+      if (!STATE.paused) {
+        p.progress = (p.progress + dt * STATE.speed * 0.9 * speed) % 1.0;
+      }
+      t = p.progress;
+      alpha = 0.4 + 0.6 * Math.sin(t * Math.PI);
+    }
+
+    // 计算当前颗粒在贝塞尔或直线上的空间位置
+    let px, py;
+    if (STATE.lineStyle === 'bezier') {
+      const dx = pTo.x - pFrom.x;
+      const c1x = pFrom.x + dx * 0.45;
+      const c1y = pFrom.y;
+      const c2x = pTo.x - dx * 0.45;
+      const c2y = pTo.y;
+
+      const oneMinusT = 1 - t;
+      px = Math.pow(oneMinusT, 3) * pFrom.x +
+           3 * Math.pow(oneMinusT, 2) * t * c1x +
+           3 * oneMinusT * Math.pow(t, 2) * c2x +
+           Math.pow(t, 3) * pTo.x;
+      py = Math.pow(oneMinusT, 3) * pFrom.y +
+           3 * Math.pow(oneMinusT, 2) * t * c1y +
+           3 * oneMinusT * Math.pow(t, 2) * c2y +
+           Math.pow(t, 3) * pTo.y;
+    } else {
+      px = pFrom.x + (pTo.x - pFrom.x) * t;
+      py = pFrom.y + (pTo.y - pFrom.y) * t;
+    }
+
+    // 绘制颗粒核心与精密拖尾
+    const radius = 1.2 + (p.absWeight / 128.0) * 1.6;
+    fgCtx.fillStyle = (weight >= 0)
+      ? `rgba(56, 189, 248, ${alpha * 0.9})`
+      : `rgba(245, 158, 11, ${alpha * 0.9})`;
+
+    fgCtx.beginPath();
+    fgCtx.arc(px, py, radius, 0, Math.PI * 2);
+    fgCtx.fill();
+  }
+}
+
+// 绘制 86 个神经元节点
+function renderNeurons() {
+  const inf = STATE.activeInference;
+  if (!inf) return;
+
+  const wp = STATE.waveProgress;
+
+  for (let l = 0; l < LAYERS.length; l++) {
+    const nodes = nodePositions[l];
+    const count = LAYERS[l].count;
+
+    // 当前层激活波次到达因子
+    let layerActive = false;
+    if (STATE.propagationMode === 'wave') {
+      if (l === 0 && wp >= 0.05 && wp < 0.20) layerActive = true;
+      else if (l === 1 && wp >= 0.40 && wp < 0.50) layerActive = true;
+      else if (l === 2 && wp >= 0.66 && wp < 0.76) layerActive = true;
+      else if (l === 3 && wp >= 0.90) layerActive = true;
+    }
+
+    for (let i = 0; i < count; i++) {
+      const n = nodes[i];
+      let actVal = 0;
+
+      if (l === 0) actVal = inf.effectiveInput[i];
+      else if (l === 1) actVal = inf.act1[i];
+      else if (l === 2) actVal = inf.act2[i];
+      else if (l === 3) actVal = (i === inf.pred) ? 127 : -60;
+
+      // 外环背景
+      fgCtx.fillStyle = (STATE.theme === 'dark') ? '#0f172a' : '#ffffff';
+      fgCtx.strokeStyle = (STATE.theme === 'dark') ? '#334155' : '#cbd5e1';
+      fgCtx.lineWidth = 1.2;
+
+      fgCtx.beginPath();
+      fgCtx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      fgCtx.fill();
+      fgCtx.stroke();
+
+      // 内部激活填充
+      const normAct = Math.abs(actVal) / 127.0;
+      const fillRadius = Math.max(1.5, n.r * 0.85 * normAct);
+
+      if (actVal >= 0) {
+        fgCtx.fillStyle = (STATE.theme === 'dark') ? '#38bdf8' : '#0284c7';
+      } else {
+        fgCtx.fillStyle = (STATE.theme === 'dark') ? '#f59e0b' : '#d97706';
+      }
+
+      fgCtx.beginPath();
+      fgCtx.arc(n.x, n.y, fillRadius, 0, Math.PI * 2);
+      fgCtx.fill();
+
+      // 到达波次时的环形脉冲动画
+      if (layerActive) {
+        const waveT = (wp * 10) % 1.0;
+        const ringR = n.r + waveT * 8;
+        const ringAlpha = (1.0 - waveT) * 0.6;
+        fgCtx.strokeStyle = (STATE.theme === 'dark')
+          ? `rgba(56, 189, 248, ${ringAlpha})`
+          : `rgba(2, 132, 199, ${ringAlpha})`;
+        fgCtx.lineWidth = 1.0;
+        fgCtx.beginPath();
+        fgCtx.arc(n.x, n.y, ringR, 0, Math.PI * 2);
+        fgCtx.stroke();
+      }
+    }
+  }
+}
+
+// 绘制悬停或选中的突出节点及相连突触高光
+function renderHoverHighlights() {
+  const h = STATE.hoveredNode;
+  if (!h || !nodePositions[h.layer]) return;
+
+  const target = nodePositions[h.layer][h.index];
+
+  // 1. 目标节点瞄准光圈
+  fgCtx.strokeStyle = '#38bdf8';
+  fgCtx.lineWidth = 2.0;
+  fgCtx.beginPath();
+  fgCtx.arc(target.x, target.y, target.r + 4, 0, Math.PI * 2);
+  fgCtx.stroke();
+
+  // 2. 高亮相连的输入突触 (来自前一层)
+  if (h.layer > 0) {
+    const prevLayer = h.layer - 1;
+    const prevNodes = nodePositions[prevLayer];
+    const weights = (prevLayer === 0) ? W1 : ((prevLayer === 1) ? W2 : W3);
+
+    for (let i = 0; i < prevNodes.length; i++) {
+      const pFrom = prevNodes[i];
+      const w = weights[h.index][i];
+      fgCtx.strokeStyle = (w >= 0) ? 'rgba(56, 189, 248, 0.9)' : 'rgba(245, 158, 11, 0.9)';
+      fgCtx.lineWidth = 1.8;
+
+      fgCtx.beginPath();
+      fgCtx.moveTo(pFrom.x, pFrom.y);
+      if (STATE.lineStyle === 'bezier') {
+        const dx = target.x - pFrom.x;
+        fgCtx.bezierCurveTo(pFrom.x + dx * 0.45, pFrom.y, target.x - dx * 0.45, target.y, target.x, target.y);
+      } else {
+        fgCtx.lineTo(target.x, target.y);
+      }
+      fgCtx.stroke();
+    }
+  }
+
+  // 3. 高亮相连的输出突触 (流向下一层)
+  if (h.layer < LAYERS.length - 1) {
+    const nextLayer = h.layer + 1;
+    const nextNodes = nodePositions[nextLayer];
+    const weights = (h.layer === 0) ? W1 : ((h.layer === 1) ? W2 : W3);
+
+    for (let j = 0; j < nextNodes.length; j++) {
+      const pTo = nextNodes[j];
+      const w = weights[j][h.index];
+      fgCtx.strokeStyle = (w >= 0) ? 'rgba(56, 189, 248, 0.9)' : 'rgba(245, 158, 11, 0.9)';
+      fgCtx.lineWidth = 1.8;
+
+      fgCtx.beginPath();
+      fgCtx.moveTo(target.x, target.y);
+      if (STATE.lineStyle === 'bezier') {
+        const dx = pTo.x - target.x;
+        fgCtx.bezierCurveTo(target.x + dx * 0.45, target.y, pTo.x - dx * 0.45, pTo.y, pTo.x, pTo.y);
+      } else {
+        fgCtx.lineTo(pTo.x, pTo.y);
+      }
+      fgCtx.stroke();
+    }
+  }
+}
+
+// ==========================================================================
+// 探针浮窗与鼠标悬停事件
+// ==========================================================================
+function setupEvents() {
+  const container = document.getElementById('canvas-container');
+
+  container.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    let found = null;
+    let minDist = 18;
+
+    for (let l = 0; l < LAYERS.length; l++) {
+      const nodes = nodePositions[l];
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const dist = Math.hypot(mx - n.x, my - n.y);
+        if (dist < minDist) {
+          minDist = dist;
+          found = { layer: l, index: i };
+        }
+      }
+    }
+
+    if (found) {
+      STATE.hoveredNode = found;
+      updateInspector(found);
+    } else if (STATE.hoveredNode && STATE.hoveredNode.layer > 0) {
+      STATE.hoveredNode = null;
+      hideInspector();
+    }
+  });
+
+  container.addEventListener('mouseleave', () => {
+    STATE.hoveredNode = null;
+    hideInspector();
+  });
+
+  // 键盘快捷键监听 (Space, ->, 1-4, T, C, R, F, ?)
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      togglePlayPause();
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault();
+      stepForward();
+    } else if (e.key >= '1' && e.key <= '4') {
+      switchClass(parseInt(e.key) - 1);
+    } else if (e.key.toLowerCase() === 't') {
+      toggleTheme();
+    } else if (e.key.toLowerCase() === 'c') {
+      toggleLineStyle();
+    } else if (e.key.toLowerCase() === 'r') {
+      restartInference();
+    } else if (e.key.toLowerCase() === 'f') {
+      toggleFullscreen();
+    } else if (e.key === '?' || e.key === 'h' || e.key === 'H') {
+      toggleShortcutsModal();
+    }
+  });
+}
+
+// 更新探针 HUD 浮窗
+function updateInspector(node) {
+  const inspector = document.getElementById('neuron-inspector');
+  const inf = STATE.activeInference;
+  const sample = STATE.activeSample;
+  if (!inf || !sample) return;
+
+  const { layer, index } = node;
+  const layerMeta = LAYERS[layer];
+
+  document.getElementById('insp-layer-name').textContent = layerMeta.label;
+  document.getElementById('insp-node-id').textContent = `Node #${index.toString().padStart(2, '0')}`;
+
+  let rawSum = 0;
+  let shiftStr = '>> 0 bits';
+  let actVal = 0;
+  let inDeg = 0;
+  let outDeg = 0;
+  let minW = 0, maxW = 0;
+  let contribs = []; // { name, val, pct }
+
+  if (layer === 0) {
+    document.getElementById('insp-type').textContent = '24-bit ADC Ring';
+    rawSum = sample.rawAdc[index];
+    shiftStr = 'LZC + ROM查表';
+    actVal = inf.effectiveInput[index];
+    inDeg = 0;
+    outDeg = 20;
+    const weights = W1.map(row => row[index]);
+    minW = Math.min(...weights);
+    maxW = Math.max(...weights);
+  } else if (layer === 1) {
+    document.getElementById('insp-type').textContent = 'FC1: 31 MACs + Act';
+    rawSum = inf.s1[index];
+    shiftStr = '>> 7 bits (Shift 5)';
+    actVal = inf.act1[index];
+    inDeg = 31;
+    outDeg = 31;
+    const weights = W1[index];
+    minW = Math.min(...weights);
+    maxW = Math.max(...weights);
+
+    // 计算 Top 3 输入贡献分量
+    for (let i = 0; i < 31; i++) {
+      const prod = weights[i] * inf.effectiveInput[i];
+      contribs.push({ name: `R${i.toString().padStart(2, '0')}`, val: prod });
+    }
+  } else if (layer === 2) {
+    document.getElementById('insp-type').textContent = 'FC2: 20 MACs + Act';
+    rawSum = inf.s2[index];
+    shiftStr = '>> 8 bits (Shift 6)';
+    actVal = inf.act2[index];
+    inDeg = 20;
+    outDeg = 4;
+    const weights = W2[index];
+    minW = Math.min(...weights);
+    maxW = Math.max(...weights);
+
+    // 计算 Top 3 输入贡献分量
+    for (let i = 0; i < 20; i++) {
+      const prod = weights[i] * inf.act1[i];
+      contribs.push({ name: `FC1 #${i.toString().padStart(2, '0')}`, val: prod });
+    }
+  } else if (layer === 3) {
+    document.getElementById('insp-type').textContent = 'FC3: 31 MACs + ArgMax';
+    rawSum = inf.s3[index];
+    shiftStr = '直接输出 (未截断)';
+    actVal = (index === inf.pred) ? '获胜类别 (WINNER)' : '未命中';
+    inDeg = 31;
+    outDeg = 0;
+    const weights = W3[index];
+    minW = Math.min(...weights);
+    maxW = Math.max(...weights);
+
+    // 计算 Top 3 输入贡献分量
+    for (let i = 0; i < 31; i++) {
+      const prod = weights[i] * inf.act2[i];
+      contribs.push({ name: `FC2 #${i.toString().padStart(2, '0')}`, val: prod });
+    }
+  }
+
+  document.getElementById('insp-raw-sum').textContent = (rawSum >= 0 ? '+' : '') + rawSum.toLocaleString();
+  document.getElementById('insp-shift').textContent = shiftStr;
+  document.getElementById('insp-act-val').textContent = actVal;
+  document.getElementById('insp-degrees').textContent = `${inDeg} in / ${outDeg} out`;
+  document.getElementById('insp-weight-range').textContent = `[${minW}, ${maxW >= 0 ? '+' : ''}${maxW}]`;
+
+  // 渲染 Top 3 贡献分量
+  const contribContainer = document.getElementById('insp-contrib-list');
+  if (contribs.length > 0) {
+    contribContainer.style.display = 'flex';
+    contribs.sort((a, b) => Math.abs(b.val) - Math.abs(a.val));
+    const top3 = contribs.slice(0, 3);
+    const maxAbs = Math.max(1, Math.abs(top3[0].val));
+
+    let html = '<span class="inspector-item-label">主要输入贡献分量 (Top 3):</span>';
+    for (const c of top3) {
+      const pct = Math.min(100, (Math.abs(c.val) / maxAbs) * 100);
+      const isPos = c.val >= 0;
+      const fillCol = isPos ? 'var(--accent-pos)' : 'var(--accent-neg)';
+      html += `
+        <div class="contrib-row">
+          <span class="contrib-name">${c.name}</span>
+          <div class="contrib-bar-bg">
+            <div class="contrib-bar-fill" style="width: ${pct.toFixed(0)}%; background: ${fillCol};"></div>
+          </div>
+          <span class="contrib-val">${isPos ? '+' : ''}${c.val}</span>
+        </div>
+      `;
+    }
+    contribContainer.innerHTML = html;
+  } else {
+    contribContainer.style.display = 'none';
+  }
+
+  inspector.classList.add('show');
+}
+
+function hideInspector() {
+  document.getElementById('neuron-inspector').classList.remove('show');
+}
+</script>
+</body>
+</html>

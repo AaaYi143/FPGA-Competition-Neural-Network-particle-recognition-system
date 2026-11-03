@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-23",
+  "stm32": {
+    "source": "D:\\32\\2-开发板硬件资料_原理图_尺寸图_封装库_规格书\\EBF410238_20231228\\F103-MINI-尺寸图.pdf",
+    "sha256": "39577b7b1f88c64eb45b60a88b811db0d1e7cce5f22a8dd1696bb9532e5f35a4",
+    "page": 1,
+    "document_outline_mm": [
+      108.4,
+      80
+    ],
+    "document_four_corner_hole_centres_mm": [
+      [
+        3,
+        3
+      ],
+      [
+        105,
+        3
+      ],
+      [
+        3,
+        77
+      ],
+      [
+        105,
+        77
+      ]
+    ],
+    "axes": "Long side is X; short side is Y. Diagram rotated relative to assembly.",
+    "model_hole_span_mm": [
+      102.0,
+      74.0
+    ],
+    "existing_model_matches_document_outline_and_hole_centres": true,
+    "physical_board_revision_confirmed": false,
+    "pcb_thickness_and_hole_diameter_not_verified_by_this_dimension_drawing": true
+  },
+  "fpga": {
+    "source": "D:\\vvd\\e-elements EGo1 Documentation.pdf",
+    "sha256": "06a05babb1b80f17aca6e29ac73baf49bba36c5546763a52de93e303be5c0973",
+    "pages_reviewed": 41,
+    "review": "Full extracted text plus rendered page contact sheets reviewed.",
+    "dimensioned_outline_or_mounting_hole_drawing_found": false,
+    "model_outline_mm": [
+      150,
+      110
+    ],
+    "model_outline_is_placeholder": true,
+    "remaining_measurements": "Actual PCB length, width, and mounting-hole coordinates."
+  },
+  "geometry_changed_in_this_recheck": false,
+  "blend_sha256": "a24f3f15e6af16ae80c2e00d15b416db4d274d863a7ec7db0db8229c62630d3b",
+  "physical_fit_verified": false
+}

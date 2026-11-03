@@ -1,0 +1,88 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="第 1 页" id="X48tsXZuNsbUjGnFB_Zj">
+    <mxGraphModel dx="1427" dy="974" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="m596DdHg6wRiltWFxkeY-1" target="64zkP8KjxyAeEw0CO6vC-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m596DdHg6wRiltWFxkeY-1" value="处理得的光电&lt;br&gt;数字信号" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="110" y="360" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m596DdHg6wRiltWFxkeY-2" target="64zkP8KjxyAeEw0CO6vC-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="390" />
+              <mxPoint x="760" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m596DdHg6wRiltWFxkeY-2" target="64zkP8KjxyAeEw0CO6vC-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="390" />
+              <mxPoint x="760" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m596DdHg6wRiltWFxkeY-2" value="FPGA" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="530" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-1" value="LabView&lt;div&gt;（32路原始值）&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="970" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-5" value="数码管显示结果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="64zkP8KjxyAeEw0CO6vC-6" target="64zkP8KjxyAeEw0CO6vC-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="64zkP8KjxyAeEw0CO6vC-6" target="64zkP8KjxyAeEw0CO6vC-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-6" value="SW6" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="350" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.035;entryY=0.51;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="m596DdHg6wRiltWFxkeY-2" target="64zkP8KjxyAeEw0CO6vC-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-10" value="上位机&lt;div&gt;（神经网络处理结果）&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="970" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-12" value="STM32彩屏显示结果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="64zkP8KjxyAeEw0CO6vC-14" target="m596DdHg6wRiltWFxkeY-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-14" value="SW7" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-17" value="是：剔除环境光" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="360" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-18" value="否：原始数据" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="390" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-19" value="原始值" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="750" y="258" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-20" value="投票处理" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="745" y="160" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="64zkP8KjxyAeEw0CO6vC-22" value="神经网络判断" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="645" y="368" width="100" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

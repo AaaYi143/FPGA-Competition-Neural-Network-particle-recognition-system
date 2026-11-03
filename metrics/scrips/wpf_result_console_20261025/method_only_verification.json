@@ -1,0 +1,10 @@
+{
+  "change_scope": "ReadSerialAsync only",
+  "outside_method_byte_identical": true,
+  "additional_classes": 0,
+  "additional_structs": 0,
+  "additional_interfaces": 0,
+  "original_sha256": "590df1c2298d9ed56cca63f3e26465d5ff7d24d3c229d3706c18846ff8afa61d",
+  "updated_sha256": "9d478600af173e9db0ea84a18eadebd6392e483094aca4254a836d7cdfbab47f",
+  "method_signature_unchanged": true
+}

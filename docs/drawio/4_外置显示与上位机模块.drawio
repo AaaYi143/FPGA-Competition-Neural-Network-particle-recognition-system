@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity Draw.io Generator" version="24.7.5" type="device">
+  <diagram id="diag_4_display" name="4_外置显示与上位机模块">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="header_title" value="外置 STM32 独立智能显示终端与 PC 端 LabVIEW 上位机交互系统框图" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#1E3A8A;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#FFFFFF;fontStyle=1;fontSize=18;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="1520" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="c4_fpga" value="① FPGA 多模态数据分发源端 (Artix-7 EGo1)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#92400E;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="360" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c4_stm32" value="② 外置 STM32 独立智能显示终端 (野火 STM32F103RCT6 + 2.8寸 ILI9341 彩屏)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#7C3AED;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#5B21B6;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="440" y="80" width="1120" height="355" as="geometry" />
+        </mxCell>
+        <mxCell id="c4_pc" value="③ PC 端 LabVIEW 实时光谱分析上位机与 PyTorch 离线量化训练闭环" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#EBF5FF;strokeColor=#2563EB;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontColor=#1E3A8A;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="440" y="455" width="1120" height="355" as="geometry" />
+        </mxCell>
+        <mxCell id="footer_legend" value="&lt;b&gt;图例说明：&lt;/b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#DC2626'&gt;&lt;b&gt;━━▶ 激光/衍射光路&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#059669'&gt;&lt;b&gt;━━▶ 模拟电流/电压信号&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#1D4ED8'&gt;&lt;b&gt;━━▶ FPGA内部高速数字流&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#D97706'&gt;&lt;b&gt;┄┄▶ FPGA闭环选通/增益/开关控制&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color='#7C3AED'&gt;&lt;b&gt;━━▶ UART串口/外设通信链路&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;系统核心指标：&lt;/b&gt;STM32链路：115200 8N1 (8B CRC8 + VOTE20滑动投票) | PC链路：115200 8E1 (66B能谱 / 8B结果) | 5态识别显示" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=1.5;align=left;verticalAlign=middle;spacingLeft=15;fontSize=11;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="830" width="1520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_fpga_core" value="&lt;b&gt;FPGA 片上神经网络与能谱缓存&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;实时产出：32 环 16-bit 净光能谱数据&lt;br&gt;实时产出：5 态微粒分类编号 RESULT (0~4)&lt;br&gt;状态标志：FLAGS (bit0=SW7背景扣除, bit1=空皿)&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="65" y="135" width="310" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_uart_stm" value="&lt;b&gt;STM32 专用串口发送引擎 (ParticleSerial.sv)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;硬件连接：FPGA J5-24 (F16) → STM32 PA3 + 共地 GND&lt;br&gt;接口标准：3.3V TTL, 115200 bps, 8N1&lt;br&gt;定长 8 字节协议帧 (Ver 02)：&lt;br&gt;A5 5A | 02 | SEQ | RESULT | FLAGS | CRC8 | 0D&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="65" y="295" width="310" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_uart_pc" value="&lt;b&gt;PC 双模式串口与蓝牙透传引擎 (Uart_Tx.sv)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;硬件接口：板载 CP2102 USB-UART / 蓝牙模块&lt;br&gt;接口标准：115200 bps, 8E1 (受拨码开关 SW6 控制)&lt;br&gt;• SW6 = 0：发送 66 字节/帧 32环能谱数据流&lt;br&gt;• SW6 = 1：发送 8 字节/帧 CRC8 结构化结果包&lt;br&gt;• 支持接收 PC 下发的 PGA 增益控制字节 (0~F)&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="65" y="480" width="310" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_seg" value="&lt;b&gt;板载辅助显示：双八段数码管&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;FPGA 本地动态扫描驱动，即时显示分类编号 0 ~ 4&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="65" y="690" width="310" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_stm_rx" value="&lt;b&gt;1. 串口帧同步与 CRC8 校验层 (USART2_RX / PA3)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 字节流状态机：捕获帧头 0xA5 0x5A、版本 0x02 与帧尾 0x0D&lt;br&gt;• 硬件级完整性校验：对索引 2~5 字节计算 CRC-8/ATM (多项式 0x07)，自动丢弃传输误码帧&lt;br&gt;• 包序号去重：比对 SEQ (0..255) 过滤重复数据包&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="470" y="135" width="325" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_stm_guard" value="&lt;b&gt;异常保护与边界快速响应机制&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 空皿秒清：收到 RESULT=0 或 FLAGS.bit1=1 立即清空投票队列并显示“无颗粒”&lt;br&gt;• 通信超时看门狗：连续 2.0 秒未收到有效帧自动清空队列并报警“连接超时”&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="470" y="290" width="325" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_stm_vote" value="&lt;b&gt;2. VOTE20 滑动窗口投票滤波引擎 (核心防抖算法)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 20 帧环形缓冲队列 (Ring Buffer)：维护最近 20 次有效非空微粒识别结果&lt;br&gt;• 渐进预热状态：队列未满 20 帧时显示“临时结果 (n/20)”&lt;br&gt;• 滑动多数表决：满 20 帧后滑动淘汰最旧帧，实时统计四类微粒得票数与百分比&lt;br&gt;• 平票防抖策略：最高得票出现平票时优先保持上一稳态类别，彻底消除加样瞬态波动&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="830" y="135" width="335" height="275" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_stm_lcd" value="&lt;b&gt;3. 2.8寸 ILI9341 彩屏 GUI 渲染 (FSMC 16-bit 并口, 240×320)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 顶部状态栏：显示串口连接状态、SW7 背景扣除开启状态、窗口进度 20/20&lt;br&gt;• 中部核心识别区：大字号显示微粒中文名称&lt;br&gt;  （0-无颗粒 / 1-小米 / 2-珍珠粉 / 3-细盐 / 4-白砂糖）&lt;br&gt;• 动态得票进度条：四类微粒得票占比彩色进度条（如 18/20 显示 90.0%）&lt;br&gt;• 底部高清实物图：从片上 256KB Flash 读取预固化 144×96 RGB565 实物图局部刷新&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="135" width="335" height="275" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_labview" value="&lt;b&gt;1. LabVIEW 实时激光粒度分析上位机 (SW6 = 0 光谱模式)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 实时接收 66 字节/帧能谱数据（32通道×16-bit 低字节在前 + FF FF 帧尾）&lt;br&gt;• 动态能谱可视化：实时绘制 32 环光能量分布柱状图（环0~30散射光 + 环31中心透射光）&lt;br&gt;• 在线背景扣除与增益调优：支持上位机背景扣减，并向 FPGA 发送 0~F 指令调节 OP37 8档 PGA&lt;br&gt;• 训练样本采集：一键将多环散射光谱导出为 data_txt/*.txt 标准训练样本&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="470" y="505" width="495" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_py_decoder" value="&lt;b&gt;2. Python 串口解码与准确率评测工具 (SW6 = 1 结果模式)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 运行 tools/serial_decoder/serial_decoder.py 捕获 8 字节结果帧&lt;br&gt;• 自动验证 CRC8 校验码、解析 FLAGS 状态并生成 CSV 连续识别率评测报表&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="470" y="690" width="495" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="h4_pytorch" value="&lt;b&gt;3. PyTorch 硬件位精确对齐训练流水线 (train_fpga_aligned.py)&lt;/b&gt;&lt;br&gt;&lt;font color='#475569' style='font-size:11px'&gt;• 读取 data_txt/ 实测四类微粒（小米/珍珠粉/细盐/白砂糖）31 环散射光谱数据集&lt;br&gt;• 100% 复现 FPGA 硬件 24-bit LZC + 倒数 ROM 无除法归一化与 Hard-Sigmoid 激活函数&lt;br&gt;• 执行 31 → 20 → 31 → 4 模型训练与 Int8 训练后量化 (PTQ)，实现 100.00% Bit-Exact 对齐&lt;br&gt;• 一键导出定点权重头文件 weights.vh 与缩放因子 scales.vh，直接纳入 Vivado 综合&lt;/font&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;shadow=0;verticalAlign=middle;align=center;spacing=4;fontColor=#0F172A;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1005" y="505" width="530" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_f1" value="RESULT &amp; FLAGS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_fpga_core" target="h4_uart_stm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_f2" value="32环能谱 &amp; RESULT" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_fpga_core" target="h4_uart_pc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="50" y="195" />
+              <mxPoint x="50" y="567" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4_f3" value="本地显示编号" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_fpga_core" target="h4_seg">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="50" y="195" />
+              <mxPoint x="50" y="732" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4_u_stm" value="UART 115200 8N1 (8B CRC8帧)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;fontColor=#5B21B6;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_uart_stm" target="h4_stm_rx">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="415" y="367" />
+              <mxPoint x="415" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4_stm_1" value="超时 / RESULT=0 检测" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_stm_rx" target="h4_stm_guard">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_stm_2" value="有效非空微粒结果" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.24;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_stm_rx" target="h4_stm_vote">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_stm_3" value="清空队列复位指令" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.78;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_stm_guard" target="h4_stm_vote">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_stm_4" value="稳态类别 &amp; 四类得票率" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_stm_vote" target="h4_stm_lcd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_u_pc0" value="SW6=0: 66B 能谱帧 (8E1)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;fontColor=#5B21B6;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.35;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_uart_pc" target="h4_labview">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="540" />
+              <mxPoint x="425" y="587" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4_u_pc_pga" value="下发 PGA 增益指令 (0~F)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0;exitY=0.75;exitDx=0;exitDy=0;;entryX=1;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_labview" target="h4_uart_pc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="415" y="630" />
+              <mxPoint x="415" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4_u_pc1" value="SW6=1: 8B 结果帧 (8E1)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;fontColor=#5B21B6;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.83;exitDx=0;exitDy=0;;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_uart_pc" target="h4_py_decoder">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="625" />
+              <mxPoint x="425" y="737" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4_sample" value="导出 data_txt/*.txt 样本" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1D4ED8;strokeWidth=2;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_labview" target="h4_pytorch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_vh" value="生成 weights.vh &amp; scales.vh 固化回 FPGA" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;dashed=1;fontColor=#92400E;fontSize=11;labelBackgroundColor=#FFFFFF;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="h4_pytorch" target="h4_fpga_core">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1270" y="800" />
+              <mxPoint x="408" y="800" />
+              <mxPoint x="408" y="195" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
